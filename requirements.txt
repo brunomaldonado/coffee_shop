@@ -1,0 +1,9 @@
+Django==5.1.1
+pillow==10.4.0
+crispy-tailwind==1.0.3
+djangorestframework==3.15.2
+django-environ==0.11.2
+psycopg2-binary==2.9.10
+django-crispy-forms==2.3
+black==24.10.0
+django-crispy-forms==2.3
