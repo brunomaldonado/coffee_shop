@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load tailwind_filters %}
+{% block content %}
+
+<form action="" class="mx-auto mb-0 mt-8 max-w-md space-y-4" method="post">
+  {% csrf_token %}
+  {{ form | crispy }}
+  <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+    <button
+      class="inline-block shrink-0 rounded-md border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white transition hover:bg-transparent hover:text-blue-600 focus:outline-none focus:ring active:text-blue-500"
+    >
+      Create an account
+    </button>
+
+    <p class="mt-4 text-sm text-gray-500 sm:mt-0">
+      Already have an account?
+      <a href="{% url "login" %}" class="text-gray-700 underline">Log in</a>.
+    </p>
+  </div>
+</form>
+
+{% endblock content %}

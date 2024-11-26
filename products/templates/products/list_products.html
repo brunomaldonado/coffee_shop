@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1 class="mb-4 mt-8">List products coffee...</h1>
+  <div class="grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+  {% for product in products %}
+    <div class="mb-4">
+      <div class="group relative block overflow-hidden">
+        <button
+          class="absolute end-4 top-4 z-10 rounded-full bg-white p-1.5 text-gray-900 transition hover:text-gray-900/75"
+        >
+          <span class="sr-only">Wishlist</span>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            class="size-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z"
+            />
+          </svg>
+        </button>
+        {% if product.photo %}
+        <img
+          src="{{ product.photo.url }}"
+          alt="{{ product.name }}"
+          class="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+        />
+        {% endif %}
+        <div class="flex justify-between border border-gray-100 bg-transparent p-1 relative md:flex-col">
+          <div class="">
+              <h3 class="truncate text-lg font-medium text-gray-900">{{ product.name}}</h3>
+              <p class="text-sm text-gray-900">$ {{ product.price}}</p>
+            </div>
+            <div class="flex flex-col items-end justify-end md:flex-col mt-1.5">
+              <div class="">
+                <form action="{% url "add_product" %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="product" value="{{ product.id }}" >
+                  <div class="relative flex items-center max-w-[8.5rem] mb-2">
+                    <button type="button" class="btn-minus bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-10 focus:ring-2">
+                      <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 2">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                      </svg>
+                    </button>
+                    <input type="text" name="quantity" aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-10 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="1" min="1" max="5" required />
+        
+                    <button type="button" class="btn-plus bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-10 focus:ring-2">
+                      <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 18">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                      </svg>
+                    </button>
+                  </div>
+                  <button type="submit" class="truncate text-white bg-yellow-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    <svg class="w-3.5 h-3.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                    <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                    </svg>
+                    Add to order
+                  </button>
+                </form>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% comment %} {% if product.photo %}
+      <img src="{{ product.photo.url }}" alt="{{ product.name}}"/>
+    {% endif %}
+    <li>{{ product.name}}</p>{{ product.price}}<p></li> {% endcomment %}
+  {% endfor %}
+    </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // Seleccionamos los elementos de cantidad y los botones
+      const btnMinus = document.querySelectorAll('.btn-minus');
+      const btnPlus = document.querySelectorAll('.btn-plus');
+      const quantityInput = document.querySelector('.quantity-input');
+  
+      // Evento para disminuir la cantidad
+      btnMinus.forEach(button => {
+        button.addEventListener('click', function() {
+          console.log("click button minus")
+          const quantityInput = this.nextElementSibling;
+          let currentValue = parseInt(quantityInput.value);
+          if (currentValue > 1) { // Asegurar que no baje de 1
+            quantityInput.value = currentValue - 1;
+          }
+        });
+      });
+  
+      // Evento para aumentar la cantidad
+      btnPlus.forEach(button => {
+        button.addEventListener('click', function() {
+          console.log("click button plus")
+          const quantityInput = this.previousElementSibling;
+          let currentValue = parseInt(quantityInput.value);
+          if (currentValue < 5) { // Asegurar que no exceda 5 (puedes cambiar este límite)
+            quantityInput.value = currentValue + 1;
+          }
+        });
+      });
+    });
+
+  </script>
+{% endblock content %}

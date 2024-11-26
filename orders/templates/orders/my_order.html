@@ -1,0 +1,187 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="order-detail">
+  <h2>Order Detail</h2>
+  <p><strong>User:</strong> {{order.user.username}} </p>
+  <p class="mb-2"><strong>Date of Order:</strong> {{order.order_date|date:"F j, Y H:m"}}</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Total</th>
+        <th>Remove</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in items %} 
+        <tr>
+          <td>{{ product.product_name }}</td>
+          {% comment %} <td>{{ product.quantity }}</td> {% endcomment %}
+          <td>
+            <div class="relative flex items-center max-w-[6rem]">
+              <button type="button" class="decrement-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
+                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 2">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                </svg>
+              </button>
+              <input type="text" id="quantity-{{ product.id }}"aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ product.quantity }}" min="1" max="5" required />
+
+              <button type="button" class="increment-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
+                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 18">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                </svg>
+              </button>
+            </div>
+          </td>
+          <td>{{ product.price }}</td>
+          <td id="total-price-{{ product.id }}">{{ product.total_price|floatformat:"2" }}</td>
+          <td>
+            <form action="{% url "delete_product" product.id %}" method="post" class="delete-product-form" data-product-id="{{ product.id }}">
+              {% csrf_token %}
+              <input type="hidden" name="product" value="{{product.id}}">
+              <button type="submit" class="delete-button font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% empty %}
+        <span class="font-medium text-blue-600 dark:text-blue-500">You do not have any products in you order.</span>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <div class="summary">
+    <p>Subtotal: $ <span id="subtotal">{{ subtotal|floatformat:"2" }}</span></p>
+    <p>IGV(16%): $ <span id="tax">{{ tax }}</span></p>
+    <p>Total Price: $ <span id="total">{{ total }}</span></p>
+  </div>
+</div>
+
+{% comment %} <h1>My orders</h1>
+{{order.user.username}}
+{{order.order_date|date}}
+
+{% for product_order in order.orderproduct_set.all %}
+  {{ product_order.product.name}}
+  {{ product_order.product.price}}
+{% empty %}
+  No aggregate products
+{% endfor %} {% endcomment %}
+
+{% comment %} {% debug | order%} {% endcomment %}
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const incrementButtons = document.querySelectorAll(".increment-button");
+    const decrementButtons = document.querySelectorAll(".decrement-button");
+    const deleteButtons = document.querySelectorAll(".delete-button");
+
+    incrementButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        console.log("button plus")
+        const productId = this.getAttribute("data-product-id");
+        updateQuantity(productId, "increment");
+      });
+    });
+
+    decrementButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        console.log("button minus")
+        const productId = this.getAttribute("data-product-id");
+        updateQuantity(productId, "decrement");
+      });
+    });
+
+    function updateQuantity(productId, action) {
+      const quantityInput = document.getElementById(`quantity-${productId}`);
+      const quantity = parseInt(quantityInput.value);
+    
+      if (!quantityInput) {
+        console.error(`Element with id quantity-${productId} not found`);
+        return;
+      }
+    
+      if (action === "increment" && quantity < 5) {
+        quantityInput.value = quantity + 1;
+      } else if (action === "decrement" && quantity > 1) {
+        quantityInput.value = quantity - 1;
+      } else {
+        return; // No se debe continuar si no se puede actualizar la cantidad
+      }
+    
+      // Deshabilitar botones mientras se actualiza
+      const incrementButton = document.querySelector(`.increment-button[data-product-id='${productId}']`);
+      const decrementButton = document.querySelector(`.decrement-button[data-product-id='${productId}']`);
+      incrementButton.disabled = true;
+      decrementButton.disabled = true;
+    
+      fetch(`/orders/update-cart/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": "{{ csrf_token }}"
+        },
+        body: JSON.stringify({
+          product_id: productId,
+          quantity: quantityInput.value
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Actualizar el precio total del producto
+        document.getElementById('total-price-' + productId).innerText = data.total_price_per_item;
+    
+        // Actualizar el subtotal, IGV y total
+        document.getElementById("subtotal").innerText = data.subtotal;
+        document.getElementById("tax").innerText = data.tax;
+        document.getElementById("total").innerText = data.total;
+    
+        // Rehabilitar botones
+        incrementButton.disabled = false;
+        decrementButton.disabled = false;
+      })
+      .catch(error => {
+        console.error("Error al actualizar el carrito:", error);
+        // Rehabilitar botones en caso de error
+        incrementButton.disabled = false;
+        decrementButton.disabled = false;
+      });
+    }
+
+    // Solcitud AJAX para eliminar el producto
+    deleteButtons.forEach(button => {
+      button.addEventListener("click", function() {
+        const productId = this.closest('form').getAttribute('data-product-id');
+        const form = this.closest('form');
+        const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        fetch(`/orders/delete-product/${productId}/`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": "{{ csrf_token }}"
+          }
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+              // Remover el producto eliminado del DOM
+              form.closest('tr').remove();
+              alert(data.message);  // Mostrar un mensaje de éxito
+          } else {
+              console.error('Error al eliminar el producto:', data.error);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    });
+  });
+</script>
+{% endblock content %}
