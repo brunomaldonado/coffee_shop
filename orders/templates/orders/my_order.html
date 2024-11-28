@@ -3,7 +3,6 @@
 {% block content %}
 
 
-
 <div class="order-detail">
   <h2>Order Detail</h2>
   <p><strong>User:</strong> {{order.user.username}} </p>
@@ -41,7 +40,7 @@
             </div>
           </td>
           <td>{{ product.price }}</td>
-          {% comment %} <td>{{ product.total_price }}</td> {% endcomment %}
+
           <td id="total-price-{{ product.id }}">{{ product.total_price|floatformat:"2" }}</td>
           <td>
             <form action="{% url "delete_product" product.id %}" method="post" class="delete-product-form" data-product-id="{{ product.id }}">
