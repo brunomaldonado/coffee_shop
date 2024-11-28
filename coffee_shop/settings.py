@@ -84,7 +84,7 @@ WSGI_APPLICATION = "coffee_shop.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {"default": env.db("DJANGO_DB_URL")}
+# DATABASES = {"default": env.db("DJANGO_DB_URL")}
 
 # DATABASES = {
 #   'default': {
@@ -108,12 +108,12 @@ DATABASES = {"default": env.db("DJANGO_DB_URL")}
 #   }
 # }
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -151,10 +151,10 @@ USE_TZ = True
 
 
 STATIC_URL = "static/"
-# STATICFILES_DIRS = [
-#     BASE_DIR / "static",  # si tienes una carpeta "static" en tu directorio de proyecto
-# ]
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfile')
+STATICFILES_DIRS = [
+    BASE_DIR / "static",  # si tienes una carpeta "static" en tu directorio de proyecto
+]
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

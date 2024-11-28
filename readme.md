@@ -19,7 +19,7 @@ Follow these steps to get the project up and running on your local machine.
 Clone the project repository from GitHub to your local machine.
 
 ```bash
-git clone https://github.com/platzi/django.git coffee_shop
+git clone https://github.com/brunomaldonado/coffee_shop.git
 cd coffee_shop
 ```
 
@@ -89,5 +89,4 @@ Project Structure
 
 Contributing
 ------------
-
-We welcome contributions! Please fork the repository and submit pull requests for any features, improvements, or bug fixes.
+...

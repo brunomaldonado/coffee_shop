@@ -30,9 +30,23 @@
       height: 100%;
     }
 
-    body {
+    .background {
       padding-left: 1.2rem;
       padding-right: 1.2rem;
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+    }
+
+    .backdrop_blur.show{
+      width: 100%;
+      height: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 20;
+      backdrop-filter: blur(8px);
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+      box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     }
 
     header {
@@ -43,8 +57,10 @@
       left: 0;
       right: 0;
       z-index: 20;
-      background-color: #9bb9d8;
       margin: auto;
+      backdrop-filter: blur(8px);
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+      box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     }
 
     header .logo {
@@ -62,35 +78,47 @@
 
     .nav-menu {
       width: 100%;
-      height: 100%;
+      height: 100vh;
       display: flex;
-      {% comment %} justify-content: flex-start;
-      align-items: left; {% endcomment %}
       flex-direction: column;
       overflow-x: hidden;
       overflow-y: hidden;
       position: fixed;
       top: 0;
       right: 0;
-      background: #fff;
-      opacity: 1;
-      z-index: 20;
-      list-style-type: none;
       transform: translateX(100%);
-      transition: transform .4s ease-in-out;
     }
 
     .nav-menu.show {
+      width: 100%;
+      height: 100vh;
       z-index: 20;
       margin: 0 auto;
-      background-color: #9bb9d8;
       transform: translateX(10%);
-      transition: transform .4s ease-in-out;
-      }
+      transition: opacity 250ms ease-in-out,transform 250ms ease;
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+      box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
+      background: rgb(252,252,252);
+      background: linear-gradient(to bottom, rgba(252,252,252,1) 5%, rgba(255,255,255,0.75) 100%);
+    }
+
+    .nav-menu.close{
+      width: 100%;
+      height: 100vh;
+      overflow-x: hidden;
+      overflow-y: hidden;
+      position: fixed;
+      top: 0;
+      right: 0;
+      transform: translateX(100%);
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+      opacity: .175;
+      transition: opacity 250ms ease,transform 250ms ease;
+    }
 
     .nav-menu li{
       border-radius: 5px;
-      width: 100%;
+      width: 90%;
       margin-top: 18px;
       text-decoration: none;
       color: #141414;
@@ -98,10 +126,11 @@
       text-transform: uppercase;
       padding: 8px;
       padding-left: 18px;
+      text-align: left;
     }
 
     .nav-menu li:nth-child(1) {
-      margin-top: 60px;
+      margin-top: 56px;
     }
 
     .nav-menu li a{
@@ -113,13 +142,20 @@
 
     .nav-menu li:hover,
     .nav-menu li:active {
-      background-color: rgb(147 197 253);
+      {% comment %} background-color: rgb(147 197 253); {% endcomment %}
+      backdrop-filter: blur(8px);
+      background-color: hsla(0, 0%, 95.3%, 0.75);
+      {% comment %} box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05); {% endcomment %}
       border-radius: 5px;
     }
 
     .log_in__user {
       position: absolute;
+      {% comment %} top: 90%;
+      left: 40% {% endcomment %}
       bottom: 60px;
+      left: 28px;
+      width: 90%;
     }
     
     .btn-orders{
@@ -220,6 +256,13 @@
       top: 50%;
       left: 45%;
       transform: translate(-50%, 0);
+
+      {% comment %} width: 95%;
+      border-bottom: 2px solid red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 0); {% endcomment %}
     }
 
     main {
@@ -368,6 +411,9 @@
     
 
     @media screen and (min-width: 768px) {
+      .backdrop_blur.show{
+        display: none;
+      }
       header{
         border-radius: 10px 0px 10px 0px;
         display: flex;
@@ -377,22 +423,32 @@
       nav {
         display: flex;
         align-items: center;
+        justify-content: space-between;
       }
 
       .nav-menu {
+        height: auto;
         position: relative;
         display: flex;
         flex-direction: row;
         align-items: center;
         background: transparent;
+        background-color: transparent;
         list-style-type: none;
-        transform: translateX(0px);
-      }
-
-      .nav-menu.show {
-        background: transparent;
         transform: translateX(0%);
+        opacity: 1;
+        margin-right: 12px;
+        border-radius: 6px;
+
+      }
+      
+      .nav-menu.show {
+        height: auto;
+        background: transparent;
         transition: transform .4s ease-in-out;
+        transform: translateX(0%);
+        margin-right: 12px;
+        border-radius: 6px;
       }
 
       .nav-menu li {
@@ -408,14 +464,13 @@
 
       .nav-menu li:hover,
       .nav-menu li:active {
-        background-color: rgba(65, 61, 61, 0.7);
+        background-color: rgba(255, 255, 255, 0.7);
         border-radius: 5px;
-        width: max-content;
         cursor: pointer;
       }
 
       .nav-menu li a{
-        font-size: 14px;
+        font-size: 12px;
         margin-left: 10px;
         margin-right: 10px;
       }
@@ -430,7 +485,6 @@
         position: relative;
         left: 0;
         top: 0;
-        {% comment %} width: 120px; {% endcomment %}
       }
 
       .sign_out__user {
@@ -438,10 +492,6 @@
         display: flex;
         flex-direction: row;
       }
-
-      {% comment %} .modal_banner_out {
-        border: 2px solid green;
-      } {% endcomment %}
 
       .navbar-toggle {
         display: none;
@@ -468,11 +518,15 @@
       
     @media screen and (min-width: 1340px) {
       .background {
-        max-width: 1340px;
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .backdrop_blur {
+        max-width: 1280px;
         margin: 0 auto;
       }
       header {
-        max-width: 1340px;
+        max-width: 1280px;
         margin: 0 auto;
       }
       .footer_contact {
@@ -484,42 +538,43 @@
 
  </style>
 </head>
-<body class="background bg-blue-300 dark:bg-gray-200">
+<body class="background">
+  <div class="backdrop_blur"></div>
   <header class="py-1">
-    <a href="{% url "list_products" %}" class="logo flex items-center ">
-      <img src="{% static "images/coffee_shop.png" %}" class="h-12 ml-2.5" alt="coffee" />
-      <span class="self-center font-semibold whitespace-nowrap dark:text-grey text-ellipsis whitespace-nowrap overflow-hidden">Coffee Shop</span>
+    <a href="{% url "list_products" %}" class=" logo flex items-center ">
+      <img src="{% static "img/fashion4.png" %}" class="h-12 ml-2.5" alt="coffee" />
+      <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey">Coffee Shop</span>
     </a>
     <nav class="">
       <ul class="nav-menu">
-        <li><a href="{% url "list_products" %}" class="active">Home</a></li>
+        <li><a href="{% url "list_products" %}" class="">Home</a></li>
         <li><a href="">Blog</a></li>
         <li><a href="">Contact</a></li>
         <li><a href="">Services</a></li>
         {% if user.is_authenticated %}
-          <li><a href="{% url "my_order" %}" class="text-nowrap hidden">My Orders</a></li>
+          <li><a href="{% url "my_order" %}" class="text-nowrap md:hidden sm:block">My Orders</a></li>
         {% else %}
           <li><a href="{% url "my_order" %}" class="text-nowrap block pt-1">My Orders</a></li>
         {% endif %}
         <div class="middle_line border-gray-200 md:hidden"></div>
-        <div class="flex md:order-2 items-center ml-6 log_in__user md:hidden">
+        <div class="flex md:order-2 items-center log_in__user md:hidden">
           <div class="flex items-center">
             {% if user.is_authenticated %}
               <button type="button" class="relative right-1.5 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-10 h-10 rounded-full" src="{% static "images/profile.png" %}" alt="profile image"/>
+                <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
                 <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
               </button>
               <span class="text-sm font-bold text-green dark:text-green mr-3 text-ellipsis whitespace-nowrap overflow-hidden">{{ user.username }}</span>
-              <div class="z-50 hidden w-auto my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 modal_banner" id="user-dropdown1">
+              <div class="z-50 hidden w-full my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-400 dark:divide-white-400" id="user-dropdown1">
                 <div class="px-4 py-3">
                   <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
-                </div>
-                <ul class="py-2" aria-labelledby="user-menu-button1">
-                  <li>
-                    <form action="{% url "logout" %}" method="post">
+                </div> 
+                <ul class="flex items-center w-full pl-14 pb-2" aria-labelledby="user-menu-button1">
+                  <li class="">
+                    <form class="pr-2" action="{% url "logout" %}" method="post">
                       {% csrf_token %}
-                      <button type="submit" class="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+                      <button type="submit" class="border rounded-lg block text-nowrap text-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
                     </form>
                   </li>
                 </ul>
@@ -532,13 +587,13 @@
       </ul>
       
       <div class="hidden md:block">
-        <div class="flex  items-center sign_out__user ml-3">
+        <div class="flex  items-center sign_out__user">
           <div class="flex items-center">
             {% if user.is_authenticated %}
               <span class="text-sm font-bold text-green dark:text-green mr-3 text-ellipsis whitespace-nowrap overflow-hidden">{{ user.username }}</span>
               <button type="button" class="relative right-1.5 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                <img class="w-10 h-10 rounded-full" src="{% static "images/profile.png" %}" alt="profile image"/>
+                <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
                 <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
               </button>
               <div class="z-50 w-auto hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 modal_banner_out" id="user-dropdown">
@@ -559,18 +614,18 @@
   
           <div>
             {% if user.is_authenticated %}
-              <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block"><a href="{% url "my_order" %}" class="">My orders</a></button>
+              <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns"><a href="{% url "my_order" %}">My Orders</a></button>
             {% else %}
-              <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-5 ml-1"><a href="{% url "login" %}" class="">Get started</a></button>
+              <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-5 ml-1 btns"><a href="{% url "login" %}" class="">LOGIN</a></button>
             {% endif %}
           </div>
         </div>
       </div>
 
       {% if user.is_authenticated %}
-        <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:block md:hidden"><a href="{% url "my_order" %}" class="">My orders</a></button>
+        <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:block md:hidden btns"><a href="{% url "my_order" %}" class="">My Orders</a></button>
       {% else %}
-        <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden"><a href="{% url "login" %}" class="">Get started</a></button>
+        <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden btns"><a href="{% url "login" %}" class="">LOGIN</a></button>
       {% endif %}
 
       <div class="navbar-toggle">
@@ -583,11 +638,10 @@
   {% block content %}{% endblock content %}
   </main>
 
-  {% comment %} {% if user.is_authenticated %} {% endcomment %}
   <section class="footer_contact">
     <div class="contact_container">
       <figure>
-        <img src="{% static "images/vector01.png" %}" alt="mail">
+        <img src="{% static "img/fashion1.png" %}" alt="mail">
       </figure>
       <div class="contact_right">
         <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
@@ -599,7 +653,7 @@
     </div>
     <div class="contact_container">
       <figure>
-        <img src="{% static "images/vector02.png" %}" alt="mail">
+        <img src="{% static "img/fashion2.png" %}" alt="mail">
       </figure>
       <div class="contact_right">
         <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
@@ -611,7 +665,7 @@
     </div>
     <div class="contact_container">
       <figure>
-        <img src="{% static "images/profile.png" %}" alt="like"
+        <img src="{% static "img/fashion4.png" %}" alt="like"
         />
       </figure>
       <div class="contact_right">
@@ -623,13 +677,16 @@
       </div>
     </div>
   </section>
+  {% comment %} {% else %}
+    <section class="footer_contact hidden"><section>
+  {% endif %} {% endcomment %}
 
   <footer class="bg-blue-300 rounded-lg dark:bg-gray-200">
   <div class="max-w-screen-xl mx-auto md:py-4">
     <div class="sm:flex sm:items-center sm:justify-between">
       <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
         {% load static %}
-        <img src="{% static "/images/coffee.png" %}" class="h-8" alt="coffee" />
+        <img src="{% static "/img/coffee.png" %}" class="h-8" alt="coffee" />
         <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">brunomaldonado</span>
       </a>
       <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
@@ -652,41 +709,70 @@
   </div>
   </footer>
 
-
   <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
   <script>
-  const navbarToggle = document.querySelector('.navbar-toggle');
-  const navMenu = document.querySelector('.nav-menu');
-  let menuOpen = false;
+    const navbarToggle = document.querySelector('.navbar-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    const backgproundBlur = document.querySelector('.backdrop_blur')
+    let menuOpen = false;
 
-  navbarToggle.addEventListener('click', () => {
-    if(!menuOpen) {
-      navbarToggle.classList.add('open');
-      menuOpen = true;
-    } else {
-      navbarToggle.classList.remove('open');
-      menuOpen = false;
-    }
-    navbarToggle.classList.toggle('active');
-    navMenu.classList.toggle('active');
-    navMenu.classList.toggle('show');
+    navbarToggle.addEventListener('click', () => {
+      if(!menuOpen) {
+        navbarToggle.classList.add('open');
+        menuOpen = true;
 
-    bars.forEach(child => {
-      child.classList.toggle('animations')
+      } else {
+        navbarToggle.classList.remove('open');
+        menuOpen = false;
+      }
+
+      backgproundBlur.classList.toggle('show');
+      navbarToggle.classList.toggle('active');
+      navMenu.classList.toggle('active');
+      navMenu.classList.toggle('show');
+      navMenu.classList.remove('close');
+
+      bars.forEach(child => {
+        child.classList.toggle('animations')
+      })
     })
-  })
+  
+    document.addEventListener('click', ( e ) => {
+      if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
+        backgproundBlur.classList.remove('show');
+        navMenu.classList.remove('show');
+        navMenu.classList.remove('close');
+        navbarToggle.classList.remove('open');
+        menuOpen = false;
+    }
+    });
 
-  document.addEventListener('click', ( e ) => {
-    if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
-      {% comment %} navMenu.classList.toggle('active'); {% endcomment %}
-      navMenu.classList.remove('show');
-      navbarToggle.classList.remove('open');
-      menuOpen = false;
-  }
-  });
+    function minwidth(x) {
+      if (x.matches) { // If media query matches
+        backgproundBlur.classList.remove('show');
+        navMenu.classList.remove('show');
+        navMenu.classList.remove('close');
+        navbarToggle.classList.remove('open');
+        menuOpen = false;
 
-  </script>
+      } else {
+       {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
+      }
+    }
+
+    // Create a MediaQueryList object
+    var x = window.matchMedia("(min-width: 768px)")
+
+    // Call listener function at run time
+    minwidth(x);
+    
+    // Attach listener function on state changes
+    x.addEventListener("change", function() {
+      minwidth(x);
+    });
+  
+    </script>
 
 </body>
 </html>
