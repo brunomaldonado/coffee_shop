@@ -84,13 +84,13 @@ WSGI_APPLICATION = "coffee_shop.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-# DATABASES = {"default": env.db("DJANGO_DB_URL")}
+DATABASES = {"default": env.db("DJANGO_DB_URL")}
 
 # DATABASES = {
 #   'default': {
 #     'ENGINE': 'django.db.backends.postgresql',
 #     'NAME': 'postgres',
-#     'HOST': 'db-course-django.cfqm0oswey4w.us-east-2.rds.amazonaws.com',
+#     'HOST': 'db-django-course.c7w2wyoem0xw.us-west-2.rds.amazonaws.com',
 #     'PORT': '5432',
 #     'USER': env.str('DJANGO_DB_USER'),
 #     'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
@@ -101,19 +101,30 @@ WSGI_APPLICATION = "coffee_shop.wsgi.application"
 #   'default': {
 #     'ENGINE': 'django.db.backends.postgresql',
 #     'NAME': 'postgres',
-#     'HOST': 'db-course-django.cfqm0oswey4w.us-east-2.rds.amazonaws.com',
+#     'HOST': 'db-django-course.c7w2wyoem0xw.us-west-2.rds.amazonaws.com',
+#     'PORT': '5432',
+#     'USER': 'db_username',
+#     'PASSWORD': env.str('DJANGO_DB_PASSWORD'),
+#   }
+# }
+
+# DATABASES = {
+#   'default': {
+#     'ENGINE': 'django.db.backends.postgresql',
+#     'NAME': 'postgres',
+#     'HOST': 'db-django-course.c7w2wyoem0xw.us-west-2.rds.amazonaws.com',
 #     'PORT': '5432',
 #     'USER': 'db_username',
 #     'PASSWORD': 'db_password'
 #   }
 # }
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
