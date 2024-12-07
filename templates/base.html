@@ -76,6 +76,10 @@
       cursor: pointer;
     }
 
+    .logo.active {
+      display: none;
+    }
+
     .nav-menu {
       width: 100%;
       height: 100vh;
@@ -539,9 +543,9 @@
 <body class="background">
   <div class="backdrop_blur"></div>
   <header class="py-1">
-    <a href="{% url "list_products" %}" class=" logo flex items-center ">
-      <img src="{% static "img/fashion4.png" %}" class="h-12 ml-2.5" alt="coffee" />
-      <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey">Coffee Shop</span>
+    <a href="{% url "list_products" %}" class=" logo flex items-center">
+      <img src="{% static "img/Coffee-logo.png" %}" class="h-12 ml-2.5" alt="coffee" />
+      <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey ml-3">Coffee Shop</span>
     </a>
     <nav class="">
       <ul class="nav-menu">
@@ -679,7 +683,7 @@
     <section class="footer_contact hidden"><section>
   {% endif %} {% endcomment %}
 
-  <footer class="bg-blue-300 rounded-lg dark:bg-gray-200">
+  <footer class="bg-gray-100 rounded-lg dark:bg-gray-100">
   <div class="max-w-screen-xl mx-auto md:py-4">
     <div class="sm:flex sm:items-center sm:justify-between">
       <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
@@ -713,6 +717,7 @@
     const navbarToggle = document.querySelector('.navbar-toggle');
     const navMenu = document.querySelector('.nav-menu');
     const backgproundBlur = document.querySelector('.backdrop_blur')
+    const logo = document.querySelector('.logo')
     let menuOpen = false;
 
     navbarToggle.addEventListener('click', () => {
@@ -730,6 +735,7 @@
       navMenu.classList.toggle('active');
       navMenu.classList.toggle('show');
       navMenu.classList.remove('close');
+      logo.classList.toggle('active');
 
       bars.forEach(child => {
         child.classList.toggle('animations')
@@ -742,6 +748,7 @@
         navMenu.classList.remove('show');
         navMenu.classList.remove('close');
         navbarToggle.classList.remove('open');
+        logo.classList.remove('active');
         menuOpen = false;
     }
     });
@@ -752,6 +759,8 @@
         navMenu.classList.remove('show');
         navMenu.classList.remove('close');
         navbarToggle.classList.remove('open');
+        logo.classList.remove('active');
+
         menuOpen = false;
 
       } else {
