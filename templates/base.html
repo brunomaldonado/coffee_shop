@@ -70,6 +70,7 @@
       font-style: normal;
       width: max-content;
       font-zise: 14px;
+      margin-left: 0.5rem;
     }
     
     .logo:hover {
@@ -91,6 +92,7 @@
       top: 0;
       right: 0;
       transform: translateX(100%);
+      
     }
 
     .nav-menu.show {
@@ -543,7 +545,7 @@
 <body class="background">
   <div class="backdrop_blur"></div>
   <header class="py-1">
-    <a href="{% url "list_products" %}" class=" logo flex items-center">
+    <a href="{% url "list_products" %}" class="logo flex items-center">
       <img src="{% static "img/Coffee-logo.png" %}" class="h-12 ml-2.5" alt="coffee" />
       <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey ml-3">Coffee Shop</span>
     </a>
@@ -572,7 +574,7 @@
                 <div class="px-4 py-3">
                   <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
                 </div> 
-                <ul class="flex items-center w-full pl-14 pb-2" aria-labelledby="user-menu-button1">
+                <ul class="flex items-center w-full pl-12 pb-2" aria-labelledby="user-menu-button1">
                   <li class="">
                     <form class="pr-2" action="{% url "logout" %}" method="post">
                       {% csrf_token %}
@@ -689,7 +691,7 @@
       <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
         {% load static %}
         <img src="{% static "/img/coffee.png" %}" class="h-8" alt="coffee" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">brunomaldonado</span>
+        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-grey">brunomaldonado</span>
       </a>
       <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
         <li>
