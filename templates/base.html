@@ -165,13 +165,13 @@
     .btn-orders{
       position: absolute;
       right: 65px;
-      top: 10px;
+      top: 8px;
     }
     
     .btn-started {
       position: absolute;
       right: 65px;
-      top: 10px;
+      top: 9px;
     }
 
     .navbar-toggle {
@@ -483,6 +483,8 @@
         position: relative;
         top: 0;
         right: 6px;
+        {% comment %} width: 100px;
+        align-items: center; {% endcomment %}
       }
 
       .btn-started {
@@ -618,7 +620,20 @@
   
           <div>
             {% if user.is_authenticated %}
-              <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns"><a href="{% url "my_order" %}">My Orders</a></button>
+              {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns"><a href="{% url "my_order" %}">My Orders</a></button> {% endcomment %}
+              <button type="submit" class="truncate text-white bg-yellow-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-4 block btns">
+                <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                </svg>
+                <a href="{% url "my_order" %}">Orders</a>
+              </button>
+              
+              {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns">
+                <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+                <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+                </svg>
+                <a href="{% url "my_order" %}">Orders</a>
+              </button> {% endcomment %}
             {% else %}
               <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-5 ml-1 btns"><a href="{% url "login" %}" class="">LOGIN</a></button>
             {% endif %}
@@ -627,7 +642,14 @@
       </div>
 
       {% if user.is_authenticated %}
-        <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:block md:hidden btns"><a href="{% url "my_order" %}" class="">My Orders</a></button>
+        {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:block md:hidden btns"><a href="{% url "my_order" %}" class="">My Orders</a></button> {% endcomment %}
+        <button type="button" class="btn-orders truncate text-white bg-yellow-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block md:hidden btns">
+          <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
+          <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
+          </svg>
+          <a href="{% url "my_order" %}">Orders</a>
+        </button>
+
       {% else %}
         <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden btns"><a href="{% url "login" %}" class="">LOGIN</a></button>
       {% endif %}

@@ -112,7 +112,7 @@ def update_cart(request):
 
         if order:
             # Buscar el producto en la orden y actualizar la cantidad
-            order_product = order.orderproduct_set.filter(id=product_id).first()
+            order_product = order.orderproduct_set.filter(id=product_id).first() 
             if order_product:
                 order_product.quantity = new_quantity
                 order_product.save()
