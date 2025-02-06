@@ -23,10 +23,8 @@
     box-sizing: border-box;
   }
 
-  html,
-  body {
+  html, body {
     width: 100%;
-    height: 100%;
   }
 
   .background {
@@ -92,7 +90,6 @@
     top: 0;
     right: 0;
     transform: translateX(100%);
-  
   }
 
   .nav-menu.show {
@@ -165,12 +162,12 @@
     position: absolute;
     right: 65px;
     top: 8px;
-  }
+  } 
 
   .btn-started {
     position: absolute;
     right: 65px;
-    top: 9px;
+    top: 8px;
   }
 
   .navbar-toggle {
@@ -181,7 +178,7 @@
     background: transparent;
     position: absolute;
     top: 14px;
-    right: 17px;
+    right: 20px;
     border-radius: 4px;
     width: 30px;
     height: 30px;
@@ -246,6 +243,7 @@
     z-index: 20;  
     overflow-x: hidden;
     overflow-y: hidden;
+    position: relaive;
   }
 
   .navbar-toggle.active {
@@ -270,11 +268,12 @@
 
   main {
     width: 100%;
-    margin-bottom: 10rem;
+    height: 100%;
     margin-top: 6rem;
+    margin-bottom: 11rem;
   }
 
-  .order-detail {
+  .order_detail {
     max-width: 700px;
     margin: 0 auto;
     padding: 1rem;
@@ -285,14 +284,14 @@
 
   }
 
-  .order-detail h2 {
+  .order_detail h2 {
     text-align: left;
     margin-bottom: 14px;
     font-weight: 600;
     font-size: 1.6rem;
   }
 
-  .order-detail table {
+  .order_detail table {
     width: 100%;
     border-collapse: collapse;
     margin: 13px 0 20px 0;
@@ -331,10 +330,6 @@
     margin: 0 10px 0 0;
   }
 
-  .footer_contact {
-    margin-bottom: 3rem;
-  }
-
   .footer_contact .contact_container{
     display: flex;
     justify-content: left;
@@ -368,7 +363,6 @@
     font-size: 14px;
     text-align: center;
     font-family: 'Poppins', sans-serif;
-    padding-bottom: 1.5rem;
   }
 
   /* Ocultar el encabezado de la tabla en pantallas pequeñas */
@@ -379,10 +373,31 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       transition: transform .4s ease-in-out;
-      {% comment %} text-align: right; {% endcomment %}
+      text-align: right;
     }
   
   }
+  @media screen and (max-height: 715px) {
+    .middle_line {
+      display: none;
+    }
+
+    .log_in__user {
+      display: flex;
+      align-items: end;
+      justify-content: end;
+      width: fit-content;
+      position: absolute;
+      left: 50%;
+      bottom: 28px;
+      {% comment %} width: 80%; {% endcomment %}
+      min-width: 73%;
+      max-width: 73%;
+      transform: translate(-50%, -50%);
+      padding-right: 6px;
+    }
+  }
+
   @media (max-width: 550px) {
     thead {
       display: none;
@@ -425,8 +440,10 @@
       width: 3rem;
       text-align: center;
     }
+    {% comment %} .footer {
+    position: relaive;
+    } {% endcomment %}
   }
-
 
   @media screen and (min-width: 768px) {
     .backdrop_blur.show{
@@ -468,14 +485,11 @@
       background: transparent;
       transition: transform .4s ease-in-out;
       transform: translateX(0%);
-      
-
     }
 
     .nav-menu li {
       margin: 0;
       padding: 0;
-      
     }
 
     .nav-menu li:nth-child(1) {
@@ -495,32 +509,21 @@
 
     .nav-menu li a{
       font-size: 12px;
-      color: #013131;
+      color: #010131;
       list-style: none;
-      font-weight: 600;
+      font-weight: 500;
       padding-right: 8px;
       padding-left: 8px;
     }
 
-
-    /* .btn-orders{
-      position: relative;
-      top: 0;
-      right: 6px;
-    } 
-
-    .btn_order_out {
-      margin-right: 1.25rem;
-      margin-left: 1.25rem;
-    }  */
-
     .btn-started {
       position: relative;
-      left: 1.2rem;
+      left: 0;
       top: 0;
       white-space: nowrap;
+      
     }
-
+    
     .navbar-toggle {
       display: none;
     }
@@ -537,10 +540,6 @@
 
     .footer_contact .contact_container{
       margin: 0;
-    }
-    .copyright {
-      padding: 0;
-      padding-bottom: 0;
     }
   }
   
@@ -574,7 +573,7 @@
       <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey ml-3">Coffee Shop</span>
     </a>
     <nav class="">
-      <ul class="nav-menu">
+      <ul class="nav-menu list_menu">
         <li><a href="{% url "list_products" %}" class="block">Home</a></li>
         <li><a href="#" class="block">Blog</a></li>
         <li><a href="#" class="block">Contact</a></li>
@@ -585,22 +584,22 @@
           <li><a href="{% url "my_order" %}" class="text-nowrap block">My Orders</a></li>
         {% endif %}
         <div class="middle_line border-gray-200 md:hidden"></div>
-        <div class="flex md:order-2 items-center log_in__user md:hidden">
-          <div class="flex items-center">
+        <div class="flex log_in__user md:hidden">
+          <div class="flex items-center align-center justify-center">
             {% if user.is_authenticated %}
               <button type="button" class="relative right-1.5 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
                 <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
                 <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
               </button>
-              <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-1">{{ user.username }}</span>
+              <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden">{{ user.username }}</span>
               <div class="z-50 hidden w-full my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-400 dark:divide-white-400" id="user-dropdown1">
                 <div class="px-4 py-3">
                   <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
                 </div>
                 <ul class="flex items-center pb-2 btn_logout" aria-labelledby="user-menu-button1">
                   <li class="">
-                    <form class="pr-2" action="{% url "logout" %}" method="post">
+                    <form class="mr-2" action="{% url "logout" %}" method="post">
                       {% csrf_token %}
                       <button type="submit" class="border rounded-lg block text-nowrap text-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
                     </form>
@@ -614,12 +613,12 @@
         </div>
       </ul>
       
-      <div class="hidden md:block">
-        <div class="flex  items-center sign_out__user">
-          <div class="flex items-center">
+      <div class="hidden md:block relative">
+        <div class="flex  items-center justify-center">
+          <div class="flex items-center justify-center mb-0.5">
             {% if user.is_authenticated %}
-              <span class="text-sm font-bold text-green dark:text-green mr-3 ml-2 mb-0.5 text-ellipsis whitespace-nowrap overflow-hidden user_name">{{ user.username }}</span>
-              <button type="button" class="relative right-1.5 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+              <span class="text-sm font-bold text-green dark:text-green mr-3 ml-3 text-ellipsis whitespace-nowrap overflow-hidden user_name">{{ user.username }}</span>
+              <button type="button" class="relative right-2 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
                 <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
                 <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
@@ -639,33 +638,24 @@
               </div>
             {% endif %}
           </div>
-          <div>
+          <div class="relative">
             {% if user.is_authenticated %}
-              {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns"><a href="{% url "my_order" %}">My Orders</a></button> {% endcomment %}
-              <button type="submit" class="truncate text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3 mr-0 block btn_order_out">
+              <button type="submit" class="truncate text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3 mr-0 block">
                 <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
                 <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
                 </svg>
                 <a href="{% url "my_order" %}">Orders</a>
               </button>
               
-              {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-4 mr-3 block btns">
-                <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-                </svg>
-                <a href="{% url "my_order" %}">Orders</a>
-              </button> {% endcomment %}
             {% else %}
-              <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mr-5"><a href="{% url "login" %}" class="">Get started</a></button>
+              <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3"><a href="{% url "login" %}" class="">Get stsarted</a></button>
             {% endif %}
           </div>
         </div>
       </div>
 
       {% if user.is_authenticated %}
-        {% comment %} <button type="button" class="btn-orders text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 sm:block md:hidden btns"><a href="{% url "my_order" %}" class="">My Orders</a></button> {% endcomment %}
-        
-        <button type="button" class="btn-orders truncate text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block md:hidden btns">
+        <button type="button" class="btn-orders text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block md:hidden">
           <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
           <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
           </svg>
@@ -673,7 +663,7 @@
         </button>
 
       {% else %}
-        <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden btns"><a href="{% url "login" %}" class="">Get started</a></button>
+        <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden"><a href="{% url "login" %}" class="">Get stadrted</a></button>
       {% endif %}
 
       <div class="navbar-toggle">
@@ -686,144 +676,144 @@
   {% block content %}{% endblock content %}
   </main>
 
-  <section class="footer_contact">
-    <div class="contact_container">
-      <figure>
-        <img src="{% static "img/fashion1.png" %}" alt="mail">
-      </figure>
-      <div class="contact_right">
-        <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
-        <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-          Lorem ipsum dolor sit, amet consectetur adipisicing good for you
-          elit. Rerum corporis ex just .
-        </p>
+  <footer class="bg-grey-100 rounded-lg dark:bg-gray-100">
+    {% if user.is_authenticated %}
+      <section class="footer_contact block">
+        <div class="contact_container">
+          <figure>
+            <img src="{% static "img/fashion1.png" %}" alt="mail">
+          </figure>
+          <div class="contact_right">
+            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
+            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
+              Lorem ipsum dolor sit, amet consectetur adipisicing good for you
+              elit. Rerum corporis ex just .
+            </p>
+          </div>
+        </div>
+        <div class="contact_container">
+          <figure>
+            <img src="{% static "img/fashion2.png" %}" alt="mail">
+          </figure>
+          <div class="contact_right">
+            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
+            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
+              corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            </p>
+          </div>
+        </div>
+        <div class="contact_container">
+          <figure>
+            <img src="{% static "img/fashion4.png" %}" alt="like"
+            />
+          </figure>
+          <div class="contact_right">
+            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Write a comment</a>
+            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
+              corporis ex I am a winner, I can doit...!.
+            </p>
+          </div>
+        </div>
+      </section>
+    {% else %}
+      <section class="footer_contact hidden"></section>
+    {% endif %}
+    <div class="max-w-screen-xl mx-auto mt-8 mb-4">
+      <div class="sm:flex sm:items-center sm:justify-between">
+        <a href="" class="flex items-center mb-2 sm:mb-0 space-x-3 rtl:space-x-reverse">
+          {% load static %}
+          <img src="{% static "/img/coffee.png" %}" class="h-8" alt="coffee" />
+          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-grey">brunomaldonado</span>
+        </a>
+        <ul class="flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+          <li>
+              <a href="#" class="hover:underline me-4 md:me-6">About</a>
+          </li>
+          <li>
+              <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+          </li>
+          <li>
+              <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+          </li>
+          <li>
+              <a href="#" class="hover:underline">Contact</a>
+          </li>
+        </ul>
       </div>
+      <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4" />
+      <span class="flex items-center justify-center text-sm text-gray-500 sm:text-center dark:text-gray-400 ">© 2023 <a href="https:" class="hover:underline">brunomaldonado</a>. All Rights Reserved.</span>
     </div>
-    <div class="contact_container">
-      <figure>
-        <img src="{% static "img/fashion2.png" %}" alt="mail">
-      </figure>
-      <div class="contact_right">
-        <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
-        <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
-          corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-        </p>
-      </div>
-    </div>
-    <div class="contact_container">
-      <figure>
-        <img src="{% static "img/fashion4.png" %}" alt="like"
-        />
-      </figure>
-      <div class="contact_right">
-        <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Write a comment</a>
-        <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
-          corporis ex I am a winner, I can doit...!.
-        </p>
-      </div>
-    </div>
-  </section>
-  {% comment %} {% else %}
-    <section class="footer_contact hidden"><section>
-  {% endif %} {% endcomment %}
-
-  <footer class="bg-gray-100 rounded-lg dark:bg-gray-100">
-  <div class="max-w-screen-xl mx-auto md:py-4">
-    <div class="sm:flex sm:items-center sm:justify-between">
-      <a href="" class="flex items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse">
-        {% load static %}
-        <img src="{% static "/img/coffee.png" %}" class="h-8" alt="coffee" />
-        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-grey">brunomaldonado</span>
-      </a>
-      <ul class="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">About</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-        </li>
-        <li>
-            <a href="#" class="hover:underline">Contact</a>
-        </li>
-      </ul>
-    </div>
-    <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4" />
-    <span class="copyright block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https:" class="hover:underline">brunomaldonado</a>. All Rights Reserved.</span>
-  </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
-  <script>
-    const navbarToggle = document.querySelector('.navbar-toggle');
-    const navMenu = document.querySelector('.nav-menu');
-    const backgproundBlur = document.querySelector('.backdrop_blur')
-    const logo = document.querySelector('.logo')
-    let menuOpen = false;
+ <script>
+   const navbarToggle = document.querySelector('.navbar-toggle');
+   const navMenu = document.querySelector('.nav-menu');
+   const backgproundBlur = document.querySelector('.backdrop_blur')
+   const logo = document.querySelector('.logo')
+   let menuOpen = false;
 
-    navbarToggle.addEventListener('click', () => {
-      if(!menuOpen) {
-        navbarToggle.classList.add('open');
-        menuOpen = true;
+   navbarToggle.addEventListener('click', () => {
+     if(!menuOpen) {
+       navbarToggle.classList.add('open');
+       menuOpen = true;
 
-      } else {
-        navbarToggle.classList.remove('open');
-        menuOpen = false;
-      }
+     } else {
+       navbarToggle.classList.remove('open');
+       menuOpen = false;
+     }
 
-      backgproundBlur.classList.toggle('show');
-      navbarToggle.classList.toggle('active');
-      navMenu.classList.toggle('active');
-      navMenu.classList.toggle('show');
-      navMenu.classList.remove('close');
-      logo.classList.toggle('active');
+     backgproundBlur.classList.toggle('show');
+     navbarToggle.classList.toggle('active');
+     navMenu.classList.toggle('active');
+     navMenu.classList.toggle('show');
+     navMenu.classList.remove('close');
+     logo.classList.toggle('active');
 
-      bars.forEach(child => {
-        child.classList.toggle('animations')
-      })
-    })
-    document.addEventListener('click', ( e ) => {
-      if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
-        backgproundBlur.classList.remove('show');
-        navMenu.classList.remove('show');
-        navMenu.classList.remove('close');
-        navbarToggle.classList.remove('open');
-        logo.classList.remove('active');
-        menuOpen = false;
-    }
-    });
+     bars.forEach(child => {
+       child.classList.toggle('animations')
+     })
+   })
+   document.addEventListener('click', ( e ) => {
+     if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
+       backgproundBlur.classList.remove('show');
+       navMenu.classList.remove('show');
+       navMenu.classList.remove('close');
+       navbarToggle.classList.remove('open');
+       logo.classList.remove('active');
+       menuOpen = false;
+   }
+   });
 
-    function minwidth(x) {
-      if (x.matches) { // If media query matches
-        backgproundBlur.classList.remove('show');
-        navMenu.classList.remove('show');
-        navMenu.classList.remove('close');
-        navbarToggle.classList.remove('open');
-        logo.classList.remove('active');
+   function minwidth(x) {
+     if (x.matches) { // If media query matches
+       backgproundBlur.classList.remove('show');
+       navMenu.classList.remove('show');
+       navMenu.classList.remove('close');
+       navbarToggle.classList.remove('open');
+       logo.classList.remove('active');
 
-        menuOpen = false;
+       menuOpen = false;
 
-      } else {
-        {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
-      }
-    }
+     } else {
+      {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
+     }
+   }
 
-    // Create a MediaQueryList object
-    var x = window.matchMedia("(min-width: 768px)")
+   // Create a MediaQueryList object
+   var x = window.matchMedia("(min-width: 768px)")
 
-    // Call listener function at run time
-    minwidth(x);
-    
-    // Attach listener function on state changes
-    x.addEventListener("change", function() {
-      minwidth(x);
-    });
-  </script>
+   // Call listener function at run time
+   minwidth(x);
+  
+   // Attach listener function on state changes
+   x.addEventListener("change", function() {
+     minwidth(x);
+   });
+   </script>
 
 </body>
 </html>

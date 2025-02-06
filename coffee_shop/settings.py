@@ -30,7 +30,7 @@ SECRET_KEY = "django-insecure-o7wlrc66)*pkl2i!@7-pdotv)me1f96dhr513_&(4(h2pxs4y#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["0.0.0.0", "rigobrunomaldonado.local"]
 
 
 # Application definition
@@ -187,3 +187,6 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
+
+
+# Una carta al Consolado de mexico como invitacion para una persona que viene de visita desde Bogota Colombia.

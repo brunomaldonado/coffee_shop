@@ -3,63 +3,66 @@
 {% block content %}
 
 
-<div class="order-detail">
-  <h2>Order Detail</h2>
-  <p><strong>User:</strong> {{order.user.username}} </p>
-  <p class="mb-2"><strong>Date of Order:</strong> {{order.order_date|date:"F j, Y H:m"}}</p>
-  
-  <table>
-    <thead>
-      <tr>
-        <th>Product</th>
-        <th>Quantity</th>
-        <th>Price</th>
-        <th>Total</th>
-        <th>Remove</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for product in items %} 
+<div class="pt-10 pb-10">
+  <div class="order_detail">
+    <h2>Order Detail</h2>
+    <p><strong>User:</strong> {{order.user.username}} </p>
+    <p class="mb-2"><strong>Date of Order:</strong> {{order.order_date|date:"F j, Y H:m"}}</p>
+    
+    <table>
+      <thead>
         <tr>
-          <td>{{ product.product_name }}</td>
-          {% comment %} <td>{{ product.quantity }}</td> {% endcomment %}
-          <td>
-            <div class="relative flex items-center max-w-[6rem]">
-              <button type="button" class="decrement-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
-                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 2">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
-                </svg>
-              </button>
-              <input type="text" id="quantity-{{ product.id }}"aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ product.quantity }}" min="1" max="5" required />
-
-              <button type="button" class="increment-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
-                <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 18">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
-                </svg>
-              </button>
-            </div>
-          </td>
-          <td>{{ product.price }}</td>
-
-          <td id="total-price-{{ product.id }}">{{ product.total_price|floatformat:"2" }}</td>
-          <td>
-            <form action="{% url "delete_product" product.id %}" method="post" class="delete-product-form" data-product-id="{{ product.id }}">
-              {% csrf_token %}
-              <input type="hidden" name="product" value="{{product.id}}">
-              <button type="submit" class="delete-button font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
-            </form>
-          </td>
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Total</th>
+          <th>Remove</th>
         </tr>
-      {% empty %}
-        <span class="font-medium text-blue-600 dark:text-blue-500">You do not have any products in you order.</span>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <div class="summary">
-    <p>Subtotal: $ <span id="subtotal">{{ subtotal|floatformat:"2" }}</span></p>
-    <p>IGV(16%): $ <span id="tax">{{ tax }}</span></p>
-    <p>Total Price: $ <span id="total">{{ total }}</span></p>
+      </thead>
+      <tbody>
+        {% for product in items %} 
+          <tr>
+            <td>{{ product.product_name }}</td>
+            {% comment %} <td>{{ product.quantity }}</td> {% endcomment %}
+            <td> 
+              <!-- max-w-[6rem] -->
+              <div class="relative flex items-center max-w-[6rem] quantity_input">
+                <button type="button" class="decrement-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
+                  <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 2">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                  </svg>
+                </button>
+                <input type="text" id="quantity-{{ product.id }}"aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ product.quantity }}" min="1" max="5" required />
+  
+                <button type="button" class="increment-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
+                  <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 18">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                  </svg>
+                </button>
+              </div>
+            </td>
+            <td>{{ product.price }}</td>
+  
+            <td id="total-price-{{ product.id }}">{{ product.total_price|floatformat:"2" }}</td>
+            <td>
+              <form action="{% url "delete_product" product.id %}" method="post" class="delete-product-form" data-product-id="{{ product.id }}">
+                {% csrf_token %}
+                <input type="hidden" name="product" value="{{product.id}}">
+                <button type="submit" class="delete-button font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+              </form>
+            </td>
+          </tr>
+        {% empty %}
+          <span class="font-medium text-blue-600 dark:text-blue-500">You do not have any products in you order.</span>
+        {% endfor %}
+      </tbody>
+    </table>
+  
+    <div class="summary">
+      <p>Subtotal: $ <span id="subtotal">{{ subtotal|floatformat:"2" }}</span></p>
+      <p>IGV(16%): $ <span id="tax">{{ tax|floatformat:"2" }}</span></p>
+      <p>Total Price: $ <span id="total">{{ total|floatformat:"2" }}</span></p>
+    </div>
   </div>
 </div>
 
