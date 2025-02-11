@@ -90,6 +90,7 @@
     top: 0;
     right: 0;
     transform: translateX(100%);
+    position: relaive;
   }
 
   .nav-menu.show {
@@ -98,7 +99,7 @@
     z-index: 20;
     margin: 0 auto;
     transform: translateX(10%);
-    transition: opacity 250ms ease-in-out,transform 250ms ease;
+    transition: opacity 250ms ease-in-out, transform 250ms ease;
     background-color: hsla(0, 0%, 95.3%, 0.75);
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     background: rgb(252,252,252);
@@ -114,7 +115,12 @@
     top: 0;
     right: 0;
     transform: translateX(100%);
-    background-color: hsla(0, 0%, 95.3%, 0.75);
+    {% comment %} background-color: hsla(0, 0%, 95.3%, 0.75); {% endcomment %}
+    background: red;
+    {% comment %} transition: opacity 250ms ease-in-out,
+    transform 250ms ease; {% endcomment %}
+    {% comment %} z-index: 20;
+    opacity: 1; {% endcomment %}
   }
 
   .nav-menu li{
@@ -162,12 +168,13 @@
     position: absolute;
     right: 65px;
     top: 8px;
-  } 
+  }
 
   .btn-started {
     position: absolute;
     right: 65px;
     top: 8px;
+    {% comment %} 95931358 {% endcomment %}
   }
 
   .navbar-toggle {
@@ -178,7 +185,7 @@
     background: transparent;
     position: absolute;
     top: 14px;
-    right: 20px;
+    right: 17px;
     border-radius: 4px;
     width: 30px;
     height: 30px;
@@ -237,14 +244,14 @@
     to {opacity: 1}
   }
 
-  header nav .nav-menu.active {
+  {% comment %} header nav .nav-menu.active {
     display: flex;
     animation: showMenu 350ms ease-in-out both;
     z-index: 20;  
     overflow-x: hidden;
     overflow-y: hidden;
     position: relaive;
-  }
+  } {% endcomment %}
 
   .navbar-toggle.active {
     position: fixed;
@@ -375,26 +382,34 @@
       transition: transform .4s ease-in-out;
       text-align: right;
     }
-  
+ 
   }
-  @media screen and (max-height: 715px) {
-    .middle_line {
-      display: none;
+  @media screen and (max-height: 540px) {
+    header nav .nav-menu.active {
+      display: flex;
+      animation: showMenu 350ms ease-in-out both;
+      z-index: 20;  
+      overflow-y: auto;
+      max-height: auto;
+      min-height: auto;
+      max-weight: auto;
+      max-weight: auto;
     }
 
     .log_in__user {
-      display: flex;
-      align-items: end;
+      {% comment %} display: flex;
+      align-items: end;q
       justify-content: end;
       width: fit-content;
       position: absolute;
       left: 50%;
       bottom: 28px;
-      {% comment %} width: 80%; {% endcomment %}
-      min-width: 73%;
-      max-width: 73%;
-      transform: translate(-50%, -50%);
-      padding-right: 6px;
+      width: 73%;
+      transform: translate(-50%, -50%); {% endcomment %}
+      {% comment %} width: 90%; {% endcomment %}
+      position: relative;
+      bottom: -120px;
+      padding-bottom: 3rem;
     }
   }
 
@@ -427,14 +442,14 @@
       font-weight: 800;
 
     }
-  
+ 
     /* Botones de incrementar/decrementar en móviles */
     .increment-button, .decrement-button {
       width: 120px;
       height: 2rem;
       padding-left: 0.75rem;
     }
-  
+ 
     /* Input de cantidad */
     .quantity-input {
       width: 3rem;
@@ -454,12 +469,12 @@
       display: flex;
       justify-content: space-between;
     }
-  
+ 
     nav {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      
+     
     }
 
     .nav-menu {
@@ -477,7 +492,7 @@
       /* border: 2px solid red; */
 
     }
-  
+ 
     .nav-menu.show {
       height: auto;
       padding: 0;
@@ -521,13 +536,13 @@
       left: 0;
       top: 0;
       white-space: nowrap;
-      
+     
     }
-    
+   
     .navbar-toggle {
       display: none;
     }
-  
+ 
     .footer_contact {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -542,7 +557,13 @@
       margin: 0;
     }
   }
-  
+
+  @media (max-height: 768px) {
+    .middle_line {
+      display: none;
+    }
+  }
+ 
   @media screen and (min-width: 1340px) {
     .background {
       max-width: 1280px;
@@ -592,8 +613,8 @@
                 <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
                 <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
               </button>
-              <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden">{{ user.username }}</span>
-              <div class="z-50 hidden w-full my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-400 dark:divide-white-400" id="user-dropdown1">
+              <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-2">{{ user.username }}</span>
+              <div class="z-50 hidden w-full my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-400 dark:divide-white-400 md:hidden" id="user-dropdown1">
                 <div class="px-4 py-3">
                   <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
                 </div>
@@ -612,7 +633,7 @@
           </div>
         </div>
       </ul>
-      
+     
       <div class="hidden md:block relative">
         <div class="flex  items-center justify-center">
           <div class="flex items-center justify-center mb-0.5">
@@ -646,7 +667,7 @@
                 </svg>
                 <a href="{% url "my_order" %}">Orders</a>
               </button>
-              
+             
             {% else %}
               <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3"><a href="{% url "login" %}" class="">Get stsarted</a></button>
             {% endif %}
@@ -770,7 +791,7 @@
      navbarToggle.classList.toggle('active');
      navMenu.classList.toggle('active');
      navMenu.classList.toggle('show');
-     navMenu.classList.remove('close');
+     {% comment %} navMenu.classList.remove('close'); {% endcomment %}
      logo.classList.toggle('active');
 
      bars.forEach(child => {
@@ -781,7 +802,7 @@
      if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
        backgproundBlur.classList.remove('show');
        navMenu.classList.remove('show');
-       navMenu.classList.remove('close');
+       {% comment %} navMenu.classList.remove('close'); {% endcomment %}
        navbarToggle.classList.remove('open');
        logo.classList.remove('active');
        menuOpen = false;
@@ -792,7 +813,7 @@
      if (x.matches) { // If media query matches
        backgproundBlur.classList.remove('show');
        navMenu.classList.remove('show');
-       navMenu.classList.remove('close');
+       {% comment %} navMenu.classList.remove('close'); {% endcomment %}
        navbarToggle.classList.remove('open');
        logo.classList.remove('active');
 
@@ -808,7 +829,7 @@
 
    // Call listener function at run time
    minwidth(x);
-  
+ 
    // Attach listener function on state changes
    x.addEventListener("change", function() {
      minwidth(x);
