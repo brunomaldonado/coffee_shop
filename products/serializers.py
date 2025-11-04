@@ -10,5 +10,5 @@ class ProductSerializer(ModelSerializer):
             "description",
             "price",
             "available",
-            "photo",
+            "image",
         ]

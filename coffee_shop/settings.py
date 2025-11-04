@@ -30,7 +30,11 @@ SECRET_KEY = "django-insecure-o7wlrc66)*pkl2i!@7-pdotv)me1f96dhr513_&(4(h2pxs4y#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["0.0.0.0", "rigobrunomaldonado.local"]
+# ALLOWED_HOSTS = ["0.0.0.0", "rigobrunomaldonado.local"]
+# ALLOWED_HOSTS = ["127.0.0.1", "localhost"]
+# ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'nonexponible-boredly-pearlie.ngrok-free.dev']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0', 'rigobrunomaldonado.local', '.devtunnels.ms']
+
 
 
 # Application definition
@@ -42,12 +46,16 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'django.contrib.humanize',
     "crispy_forms",
     "crispy_tailwind",
     "rest_framework",
     "products",
     "users",
     "orders",
+]
+CSRF_TRUSTED_ORIGINS = [
+    'https://nonexponible-boredly-pearlie.ngrok-free.dev',
 ]
 
 MIDDLEWARE = [
@@ -73,6 +81,7 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "orders.context_processors.cart_count",
             ],
         },
     },
@@ -123,6 +132,8 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": BASE_DIR / "db.sqlite3",
+        'OPTIONS': {
+            'timeout': 20,}
     }
 }
 
@@ -159,6 +170,9 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 STATIC_URL = "static/"
 STATICFILES_DIRS = [

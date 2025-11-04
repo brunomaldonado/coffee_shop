@@ -9,14 +9,21 @@ class Order(models.Model):
     is_active = models.BooleanField(default=True)
     order_date = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        indexes = [models.Index(fields=['user', 'is_active'])]
+
     def __str__(self):
         return f"Order {self.id} by {self.user}"
 
 
 class OrderProduct(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.PROTECT)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=1)
+
+    class Meta:
+        indexes = [models.Index(fields=['order', 'product'])]
+        unique_together = ('order', 'product')
 
     def clean(self):
         if self.quantity < 1:

@@ -1,15 +1,14 @@
 {% extends "base.html" %}
+{% load humanize %}
 
 {% block content %}
-
-
-<div class="pt-10 pb-10">
+<div class="pt-3 mx-auto">
   <div class="order_detail">
     <h2>Order Detail</h2>
     <p><strong>User:</strong> {{order.user.username}} </p>
     <p class="mb-2"><strong>Date of Order:</strong> {{order.order_date|date:"F j, Y H:m"}}</p>
-    
-    <table>
+
+    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400 mb-4">
       <thead>
         <tr>
           <th>Product</th>
@@ -20,20 +19,18 @@
         </tr>
       </thead>
       <tbody>
-        {% for product in items %} 
+        {% for product in items %}
           <tr>
-            <td>{{ product.product_name }}</td>
-            {% comment %} <td>{{ product.quantity }}</td> {% endcomment %}
-            <td> 
-              <!-- max-w-[6rem] -->
+            <td class="font-medium text-gray-900">{{ product.product_name }}</td>
+            <td>
               <div class="relative flex items-center max-w-[6rem] quantity_input">
                 <button type="button" class="decrement-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-s-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
                   <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 2">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
                   </svg>
                 </button>
-                <input type="text" id="quantity-{{ product.id }}"aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ product.quantity }}" min="1" max="5" required />
-  
+                <input type="text" id="quantity-{{ product.id }}" aria-describedby="helper-text-explanation" class="quantity-input bg-gray-50 border-x-0 border-gray-300 h-8 text-center text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full py-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{ product.quantity }}" min="1" max="5" required />
+
                 <button type="button" class="increment-button bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 border border-gray-300 rounded-e-lg p-2 h-8 focus:ring-2" data-product-id="{{ product.id }}">
                   <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" fill="none" viewBox="0 0 18 18">
                       <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
@@ -41,28 +38,45 @@
                 </button>
               </div>
             </td>
-            <td>{{ product.price }}</td>
-  
-            <td id="total-price-{{ product.id }}">{{ product.total_price|floatformat:"2" }}</td>
+            <td class="font-medium text-gray-900">{{ product.price|floatformat:2|intcomma }}</td>
+            <td class="font-medium text-gray-900" id="total-price-{{ product.id }}">{{ product.total_price|floatformat:2|intcomma }}</td>
             <td>
-              <form action="{% url "delete_product" product.id %}" method="post" class="delete-product-form" data-product-id="{{ product.id }}">
+              <form action="{% url 'delete_product' product.id %}" method="POST" class="delete-product-form" data-product-id="{{ product.id }}">
                 {% csrf_token %}
                 <input type="hidden" name="product" value="{{product.id}}">
-                <button type="submit" class="delete-button font-medium text-red-600 dark:text-red-500 hover:underline">Delete</button>
+                <button type="button" class="delete-button font-medium bg-red-500 w-full hover:bg-red-700 text-white font-bold py-1 px-2 rounded focus:outline-none focus:ring-4 focus:ring-red-300 hover:underline max-[550px]:w-[100px] max-[550px]:mb-2">Delete</button>
               </form>
             </td>
           </tr>
         {% empty %}
-          <span class="font-medium text-blue-600 dark:text-blue-500">You do not have any products in you order.</span>
+          <span class="font-medium text-blue-600 dark:text-blue-500 span_message">You do not have any products in you order.</span>
         {% endfor %}
       </tbody>
     </table>
-  
-    <div class="summary">
-      <p>Subtotal: $ <span id="subtotal">{{ subtotal|floatformat:"2" }}</span></p>
-      <p>IGV(16%): $ <span id="tax">{{ tax|floatformat:"2" }}</span></p>
-      <p>Total Price: $ <span id="total">{{ total|floatformat:"2" }}</span></p>
+
+    <div class="summary text-gray-900">
+      <p >Subtotal: $ <span id="subtotal">{{ subtotal|default:"00.00"|floatformat:2|intcomma }}</span></p>
+      <p>IGV(16%): $ <span id="tax">{{ tax|default:"00.00"|floatformat:2|intcomma }}</span></p>
+      <p class="font-medium">Total Price: $ <span id="total">{{ total|default:"00.00"|floatformat:2|intcomma }}</span></p>
     </div>
+
+    {% comment %} <div class="summary">
+      <div class="summary-row">
+        <span class="summary-label">Subtotal:</span>
+        <span class="summary-currency">$</span>
+        <span class="summary-value" id="subtotal">{{ subtotal|default:"00.00"|floatformat:2|intcomma }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">IGV(16%):</span>
+        <span class="summary-currency">$</span>
+        <span class="summary-value" id="tax">{{ tax|default:"00.00"|floatformat:2|intcomma }}</span>
+      </div>
+      <div class="summary-row">
+        <span class="summary-label">Total Price:</span>
+        <span class="summary-currency">$</span>
+        <span class="summary-value whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden" id="total">{{ total|default:"00.00"|floatformat:2|intcomma }}</span>
+      </div>
+    </div> {% endcomment %}
   </div>
 </div>
 
@@ -85,9 +99,18 @@
     const decrementButtons = document.querySelectorAll(".decrement-button");
     const deleteButtons = document.querySelectorAll(".delete-button");
 
+    function formatNumber(value) {
+      const number = parseInt(value);
+      if (isNaN(number)) return "0.00";
+      return number.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+    }
+
     incrementButtons.forEach(button => {
       button.addEventListener("click", function() {
-        console.log("button plus")
+        {% comment %} console.log("button plus") {% endcomment %}
         const productId = this.getAttribute("data-product-id");
         updateQuantity(productId, "increment");
       });
@@ -95,7 +118,7 @@
 
     decrementButtons.forEach(button => {
       button.addEventListener("click", function() {
-        console.log("button minus")
+        {% comment %} console.log("button minus") {% endcomment %}
         const productId = this.getAttribute("data-product-id");
         updateQuantity(productId, "decrement");
       });
@@ -104,12 +127,12 @@
     function updateQuantity(productId, action) {
       const quantityInput = document.getElementById(`quantity-${productId}`);
       const quantity = parseInt(quantityInput.value);
-    
+
       if (!quantityInput) {
         console.error(`Element with id quantity-${productId} not found`);
         return;
       }
-    
+
       if (action === "increment" && quantity < 5) {
         quantityInput.value = quantity + 1;
       } else if (action === "decrement" && quantity > 1) {
@@ -117,14 +140,14 @@
       } else {
         return; // No se debe continuar si no se puede actualizar la cantidad
       }
-    
+
       // Deshabilitar botones mientras se actualiza
       const incrementButton = document.querySelector(`.increment-button[data-product-id='${productId}']`);
       const decrementButton = document.querySelector(`.decrement-button[data-product-id='${productId}']`);
       incrementButton.disabled = true;
       decrementButton.disabled = true;
-    
-      fetch(`/orders/update-cart/`, {
+
+      fetch("/orders/update-cart/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -138,13 +161,13 @@
       .then(response => response.json())
       .then(data => {
         // Actualizar el precio total del producto
-        document.getElementById('total-price-' + productId).innerText = data.total_price_per_item;
-    
+        document.getElementById('total-price-' + productId).innerText = formatNumber(data.total_price_per_item);
+
         // Actualizar el subtotal, IGV y total
-        document.getElementById("subtotal").innerText = data.subtotal;
-        document.getElementById("tax").innerText = data.tax;
-        document.getElementById("total").innerText = data.total;
-    
+        document.getElementById("subtotal").innerText = formatNumber(data.subtotal);
+        document.getElementById("tax").innerText = formatNumber(data.tax);
+        document.getElementById("total").innerText = formatNumber(data.total);
+
         // Rehabilitar botones
         incrementButton.disabled = false;
         decrementButton.disabled = false;
@@ -159,26 +182,61 @@
 
     // Solcitud AJAX para eliminar el producto
     deleteButtons.forEach(button => {
-      button.addEventListener("click", function() {
-        const productId = this.closest('form').getAttribute('data-product-id');
+      button.addEventListener("click", function(event) {
+        event.preventDefault(); // Prevenir recarga de página
+
         const form = this.closest('form');
+        const url = form.action;
         const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
 
-        fetch(`/orders/delete-product/${productId}/`, {
+        fetch(url, {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken": "{{ csrf_token }}"
+            "X-CSRFToken": csrfToken, // ✅ Se usa el token del formulario
+            "X-Requested-With": "XMLHttpRequest" // Indica que es una solicitud AJAX
           }
         })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('HTTP error, status = ' + response.status);
+          }
+          return response.json();
+        })
         .then(data => {
           if (data.success) {
-              // Remover el producto eliminado del DOM
               form.closest('tr').remove();
-              alert(data.message);  // Mostrar un mensaje de éxito
+              document.querySelectorAll('.order-count').forEach(el => {
+                el.innerText = data.cart_count;
+                console.log("Updated order count to:", data.cart_count);
+              });
+              document.getElementById("subtotal").innerText = formatNumber(data.subtotal);
+              document.getElementById("tax").innerText = formatNumber(data.tax);
+              document.getElementById("total").innerText = formatNumber(data.total);
+              console.log('Product successfully removed.');
+              const messsageElement = document.querySelector('.span_message');
+              if (messsageElement) {
+                messsageElement.innerText = data.message;
+              } else {
+                // If there is no message element, check if the table is empty and add the message
+                const tbody = document.querySelector('table tbody');
+                if (tbody && tbody.children.length === 0) {
+
+                  const tbody = document.querySelector('tbody'); // Ajusta el selector según tu tabla
+                  const messageRow = document.createElement('tr');
+                  messageRow.innerHTML = `
+                    <td colspan="5" class="text-center py-4">
+                      <span class="font-medium text-blue-600 dark:text-blue-500 span_message">
+                        You do not have any products in your order.
+                      </span>
+                    </td>
+                  `;
+                  tbody.appendChild(messageRow);
+                  console.log("You do not have any products in you order.")
+                }
+              }
           } else {
-              console.error('Error al eliminar el producto:', data.error);
+              console.error('Error deleting product.', data.error);
           }
         })
         .catch(error => {

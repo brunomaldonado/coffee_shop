@@ -23,14 +23,46 @@
     box-sizing: border-box;
   }
 
-  html, body {
+  body {
     width: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    font-family: 'Poppins' sans-serif;
+  }
+
+  body.menu-open {
+    overflow: hidden;
+  }
+
+  input[type="checkbox"]:focus {
+    outline: none;
+  }
+
+  .shimmer-effect {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(255, 255, 255, 0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 
   .background {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     background-color: hsla(0, 0%, 95.3%, 0.75);
+    min-height: 100vh;
   }
 
   .backdrop_blur.show{
@@ -68,7 +100,6 @@
     font-weight: 800;
     font-style: normal;
     width: max-content;
-    font-zise: 14px;
   }
 
   .logo:hover {
@@ -81,7 +112,7 @@
 
   .nav-menu {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
@@ -90,20 +121,23 @@
     top: 0;
     right: 0;
     transform: translateX(100%);
-    position: relaive;
+    padding: 0;
+    margin: 0;
+    list-style: none;
   }
 
   .nav-menu.show {
     width: 100%;
     height: 100vh;
     z-index: 20;
-    margin: 0 auto;
+    overflow-y: auto;
     transform: translateX(10%);
     transition: opacity 250ms ease-in-out, transform 250ms ease;
     background-color: hsla(0, 0%, 95.3%, 0.75);
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     background: rgb(252,252,252);
     background: linear-gradient(to bottom, rgba(252,252,252,1) 5%, rgba(255,255,255,0.75) 100%);
+    /* background-color: rgb(167, 164, 161); */
   }
 
   .nav-menu.close{
@@ -115,38 +149,32 @@
     top: 0;
     right: 0;
     transform: translateX(100%);
-    {% comment %} background-color: hsla(0, 0%, 95.3%, 0.75); {% endcomment %}
-    background: red;
-    {% comment %} transition: opacity 250ms ease-in-out,
-    transform 250ms ease; {% endcomment %}
-    {% comment %} z-index: 20;
-    opacity: 1; {% endcomment %}
   }
 
   .nav-menu li{
-    border-radius: 5px;
-    width: 90%;
-    margin-top: 18px;
+    margin-top: 30px;
+
     text-decoration: none;
-    color: #141414;
+    color: #330b0b;
     transition: 0.3s ease-out;
     text-transform: uppercase;
-    padding: 8px;
-    padding-left: 18px;
-    text-align: left;
+    /* background-color: burlywood; */
+    /* align-self: start; */
+    padding: 0;
+    list-style: none;
   }
 
   .nav-menu li:nth-child(1) {
-    margin-top: 56px;
+    margin-top: 60px;
   }
 
   .nav-menu li a{
     font-weight: 600;
     font-family: "Poppins";
     font-size: 14px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    display: block;
+    width: 100%;
+    padding-left: 18px;
   }
 
 
@@ -154,27 +182,12 @@
   .nav-menu li:active {
     backdrop-filter: blur(8px);
     background-color: hsla(0, 0%, 95.3%, 0.75);
-    border-radius: 5px;
   }
 
   .log_in__user {
     position: absolute;
     bottom: 60px;
-    left: 24px;
-    width: 90%;
-  }
-
-  .btn-orders{
-    position: absolute;
-    right: 68px;
-    top: 8px;
-  }
-
-  .btn-started {
-    position: absolute;
-    right: 65px;
-    top: 8px;
-    {% comment %} 95931358 {% endcomment %}
+    left: 18px;
   }
 
   .navbar-toggle {
@@ -184,7 +197,7 @@
     border: transparent;
     background: transparent;
     position: absolute;
-    top: 14px;
+    top: 8.5px;
     right: 20px;
     border-radius: 4px;
     width: 30px;
@@ -244,15 +257,6 @@
     to {opacity: 1}
   }
 
-  {% comment %} header nav .nav-menu.active {
-    display: flex;
-    animation: showMenu 350ms ease-in-out both;
-    z-index: 20;  
-    overflow-x: hidden;
-    overflow-y: hidden;
-    position: relaive;
-  } {% endcomment %}
-
   .navbar-toggle.active {
     position: fixed;
   }
@@ -266,18 +270,16 @@
     transform: translate(-50%, 0);
   }
 
-  .btn_logout {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-
   main {
     width: 100%;
-    height: 100%;
-    margin-top: 6rem;
-    margin-bottom: 11rem;
+    margin-top: 5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Si hay padding que causa desbordamiento */
+  form {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 
   .order_detail {
@@ -288,7 +290,6 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     background: #fff;
-
   }
 
   .order_detail h2 {
@@ -310,60 +311,60 @@
     margin-top: 1rem;
   }
 
-  thead {
-    background-color: #f8f8f8;
+  thead tr th{
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
   }
 
-  th, td {
+  th, td{
     text-align: left;
     border-bottom: 1px solid #ddd;
   }
 
-  th {
-    font-weight: bold;
+  tbody tr td {
+    padding: 0.25rem 0;
+    font-family: "Poppins", sans-serif;
   }
 
   .quantity_input {
     width: 120px;
   }
+
   .summary {
-    text-align: right;
-    margin-top: 1rem;
-    margin-bottom: 10px;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-right: 0.5rem;
   }
 
   .summary p {
-    font-size: 16px;
-    margin: 0 10px 0 0;
+    font-family: "Poppins", sans-serif;
+    font-size: 14px;
   }
 
-  .footer_contact .contact_container{
-    display: flex;
-    justify-content: left;
+  .summary-row {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 0.25rem;
+    margin-bottom: 0.0125rem;
     align-items: left;
-    margin: 5px 0 8px;
   }
 
-  .footer_contact div a {
-    font-size: 14px;
-    padding: 0;
-    width:  max-content;
-    margin-bottom: 5px;
+  .summary-label {
+    text-align: right;
+    font-weight: 400;
   }
 
-  .footer_contact div p {
-    font-size: 14px;
-    text-align: justify;
-    line-height: 1.2;
+  .summary-currency {
+    text-align: right;
+    font-weight: 600;
   }
 
-  .footer_contact figure img {
-    width: 50px;
-    min-width: 45px;
-  }
-
-  .contact_right {
-    margin-left: 10px;
+  .summary-value {
+    text-align: right;
+    font-weight: 600;
+    min-width: 3rem; /* Ajusta segÃÂon tus necesidades */
   }
 
   .copyright {
@@ -372,93 +373,131 @@
     font-family: 'Poppins', sans-serif;
   }
 
-  /* Ocultar el encabezado de la tabla en pantallas pequeñas */
-  @media (max-width: 800px) {
-    .user_name {
-      max-width: 65px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      transition: transform .4s ease-in-out;
-      text-align: right;
-    }
- 
-  }
+  /* Ocultar el encabezado de la tabla en pantallas pequeÃÂ±as */
+
   @media screen and (max-height: 540px) {
     header nav .nav-menu.active {
       display: flex;
       animation: showMenu 350ms ease-in-out both;
-      z-index: 20;  
+      z-index: 20;
       overflow-y: auto;
       max-height: auto;
-      min-height: auto;
-      max-weight: auto;
-      max-weight: auto;
     }
 
     .log_in__user {
-      {% comment %} display: flex;
-      align-items: end;q
-      justify-content: end;
-      width: fit-content;
-      position: absolute;
-      left: 50%;
-      bottom: 28px;
-      width: 73%;
-      transform: translate(-50%, -50%); {% endcomment %}
-      {% comment %} width: 90%; {% endcomment %}
       position: relative;
-      bottom: -120px;
-      padding-bottom: 3rem;
+      top: 60px;
+      padding-bottom: 60px;
     }
   }
 
-  @media (max-width: 550px) {
-    thead {
-      display: none;
-    }
-
-    /* Estilos para cada fila como una tarjeta en móviles */
-    tbody tr {
-      display: flex;
-      flex-direction: column;
-      /* align-items: start; */
-      border-bottom: 1px solid #ddd;
-      padding: .5rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-      border-radius: 5px;
-    }
-
-    /* Para cada celda de la tabla */
-    tbody td {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      padding: 0.125rem 0;
-    }
-
-    tbody td:nth-child(1) {
-      font-weight: 800;
-
-    }
- 
-    /* Botones de incrementar/decrementar en móviles */
-    .increment-button, .decrement-button {
-      width: 120px;
-      height: 2rem;
-      padding-left: 0.75rem;
-    }
- 
-    /* Input de cantidad */
-    .quantity-input {
-      width: 3rem;
-      text-align: center;
-    }
-    {% comment %} .footer {
-    position: relaive;
-    } {% endcomment %}
+@media (max-width: 550px) {
+  thead {
+    display: none;
   }
+
+  /* Estilos para cada fila como una tarjeta en mÃÂ3viles */
+  tbody tr {
+    display: block;
+    border: 1px solid #e5e5e5;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
+    background-color: #fff;
+  }
+
+  tbody tr td {
+    padding: 0;
+  }
+
+  /* Para cada celda de la tabla */
+  tbody td {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    text-align: left;
+  }
+
+  /* Agregar etiquetas antes de cada dato */
+  tbody td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    display: block;
+    color: #333;
+    margin-right: 0.5rem;
+  }
+
+  /* Product name */
+  tbody td:nth-child(1) {
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+    padding-left: 0;
+
+  }
+
+  tbody td:nth-child(1)::before {
+    content: "Product: ";
+  }
+
+  /* Quantity */
+  tbody td:nth-child(2) {
+    padding-left: 0;
+  }
+
+  tbody td:nth-child(2)::before {
+    content: "Quantity: ";
+    margin-bottom: 0.25rem;
+  }
+
+  /* Price */
+  tbody td:nth-child(3)::before {
+    content: "Price: ";
+  }
+
+  /* Total */
+  tbody td:nth-child(4)::before {
+    content: "Total: ";
+  }
+
+  /* Delete button - sin etiqueta */
+  tbody td:nth-child(5)::before {
+    content: none;
+  }
+
+  tbody td:nth-child(5) {
+    margin-top: 0.5rem;
+  }
+
+  /* Ajustar el contenedor de quantity */
+  .quantity_input {
+    max-width: 8rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Botones de incrementar/decrementar */
+  .increment-button, .decrement-button {
+    width: auto;
+    height: 2rem;
+    padding: 0.5rem;
+  }
+
+  /* Input de cantidad */
+  .quantity-input {
+    width: 3rem;
+    text-align: center;
+    height: 2rem;
+  }
+
+  /* BotÃÂ3n delete */
+  .delete-button {
+    display: inline-block;
+    padding: 0.25rem 0;
+  }
+}
+
 
   @media screen and (min-width: 768px) {
     .backdrop_blur.show{
@@ -469,16 +508,17 @@
       display: flex;
       justify-content: space-between;
     }
- 
+
     nav {
       display: flex;
       align-items: center;
+      justify-content: center;
       justify-content: space-between;
-     
+      /* background-color: cadetblue; */
     }
 
     .nav-menu {
-      height: auto;
+      /* height: 10px; */
       position: relative;
       display: flex;
       flex-direction: row;
@@ -486,13 +526,12 @@
       justify-content: center;
       background: transparent;
       background-color: transparent;
-      list-style-type: none;
+      /* background-color: rgb(140, 143, 142); */
       transform: translateX(0%);
       opacity: 1;
-      /* border: 2px solid red; */
-
+      gap: 0;
     }
- 
+
     .nav-menu.show {
       height: auto;
       padding: 0;
@@ -505,6 +544,9 @@
     .nav-menu li {
       margin: 0;
       padding: 0;
+      margin-top: 0;
+      margin-left: 0;
+      /* background-color: mediumslateblue; */
     }
 
     .nav-menu li:nth-child(1) {
@@ -513,57 +555,29 @@
       padding: 0;
     }
 
+    .nav-menu li a{
+      font-size: 14px;
+      color: #010131;
+      font-weight: 500;
+      padding: 6px;
+    }
     .nav-menu li:hover,
     .nav-menu li:active {
-      /* background-color: rgba(255, 255, 255, 0.7); */
-      background-color: rgba(218, 204, 204, 0.7);
-      border-radius: 5px;
-      cursor: pointer;
-      padding: 9px;
+      backdrop-filter: blur(8px);
+      background-color: hsla(0, 69%, 82%, 0.75);
     }
 
-    .nav-menu li a{
-      font-size: 12px;
-      color: #010131;
-      list-style: none;
-      font-weight: 500;
-      padding-right: 8px;
-      padding-left: 8px;
-    }
-
-    .btn-started {
-      position: relative;
-      left: 0;
-      top: 0;
-      white-space: nowrap;
-     
-    }
-   
     .navbar-toggle {
       display: none;
     }
- 
-    .footer_contact {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-    }
-
-    .footer_contact figure img {
-      max-width: 100px;
-    }
-
-    .footer_contact .contact_container{
-      margin: 0;
-    }
   }
 
-  @media (max-height: 768px) {
+  @media (max-height: 800px) {
     .middle_line {
       display: none;
     }
   }
- 
+
   @media screen and (min-width: 1340px) {
     .background {
       max-width: 1280px;
@@ -577,265 +591,409 @@
       max-width: 1280px;
       margin: 0 auto;
     }
-    .footer_contact {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
   }
 
 </style>
 </head>
 <body class="background">
   <div class="backdrop_blur"></div>
-  <header class="py-1">
-    <a href="{% url "list_products" %}" class="logo flex items-center">
-      <img src="{% static "img/Coffee-logo.png" %}" class="h-12" alt="coffee" />
-      <span class="self-center font-semibold whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey ml-3">Coffee Shop</span>
-    </a>
-    <nav class="">
-      <ul class="nav-menu list_menu">
-        <li><a href="{% url "list_products" %}" class="block">Home</a></li>
-        <li><a href="#" class="block">Blog</a></li>
-        <li><a href="#" class="block">Contact</a></li>
-        <li><a href="#" class="block">Services</a></li>
-        {% if user.is_authenticated %}
-          <li><a href="{% url "my_order" %}" class="text-nowrap md:hidden sm:block">My Orders</a></li>
-        {% else %}
-          <li><a href="{% url "my_order" %}" class="text-nowrap block">My Orders</a></li>
-        {% endif %}
-        <div class="middle_line border-gray-200 md:hidden"></div>
-        <div class="flex log_in__user md:hidden">
-          <div class="flex items-center align-center justify-center">
-            {% if user.is_authenticated %}
-              <button type="button" class="relative right-1.5 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
-                <span class="sr-only">Open user menu</span>
-                <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
-                <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
-              </button>
-              <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-2">{{ user.username }}</span>
-              <div class="z-50 hidden w-full my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-400 dark:divide-white-400 md:hidden" id="user-dropdown1">
-                <div class="px-4 py-3">
-                  <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
-                </div>
-                <ul class="flex items-center pb-2 btn_logout" aria-labelledby="user-menu-button1">
-                  <li class="">
-                    <form class="mr-2" action="{% url "logout" %}" method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="border rounded-lg block text-nowrap text-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
-            {% else %}
-            {% comment %} <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"><a href="{% url "login" %}" class="">Get started</a></button> {% endcomment %}
-            {% endif %}
-          </div>
-        </div>
-      </ul>
-     
-      <div class="hidden md:block relative">
-        <div class="flex  items-center justify-center">
-          <div class="flex items-center justify-center mb-0.5">
-            {% if user.is_authenticated %}
-              <span class="text-sm font-bold text-green dark:text-green mr-3 ml-3 text-ellipsis whitespace-nowrap overflow-hidden user_name">{{ user.username }}</span>
-              <button type="button" class="relative right-2 text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                <span class="sr-only">Open user menu</span>
-                <img class="w-10 h-10 rounded-full" src="{% static "img/fashion4.png" %}" alt="profile image"/>
-                <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
-              </button>
-              <div class="z-50 w-auto hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 modal_banner_out" id="user-dropdown">
-                <div class="px-4 py-3">
-                  <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
-                </div>
-                <ul class="py-2" aria-labelledby="user-menu-button">
-                  <li>
-                    <form action="{% url "logout" %}" method="post">
-                      {% csrf_token %}
-                      <button type="submit" class="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
-                    </form>
-                  </li>
-                </ul>
-              </div>
-            {% endif %}
-          </div>
-          <div class="relative">
-            {% if user.is_authenticated %}
-              <button type="submit" class="truncate text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center  dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3 mr-0 block">
-                <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-                <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-                </svg>
-                <a href="{% url "my_order" %}">Orders</a>
-              </button>
-             
-            {% else %}
-              <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 ml-3"><a href="{% url "login" %}" class="">Get stsarted</a></button>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-
-      {% if user.is_authenticated %}
-        <button type="button" class="btn-orders text-white bg-blue-400 transition hover:bg-blue-900 hover:scale-105 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 block md:hidden">
-          <svg class="w-3.5 h-4.5 me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 21">
-          <path d="M15 12a1 1 0 0 0 .962-.726l2-7A1 1 0 0 0 17 3H3.77L3.175.745A1 1 0 0 0 2.208 0H1a1 1 0 0 0 0 2h.438l.6 2.255v.019l2 7 .746 2.986A3 3 0 1 0 9 17a2.966 2.966 0 0 0-.184-1h2.368c-.118.32-.18.659-.184 1a3 3 0 1 0 3-3H6.78l-.5-2H15Z"/>
-          </svg>
-          <a href="{% url "my_order" %}">Orders</a>
-        </button>
-
-      {% else %}
-        <button type="button" class="btn-started text-nowrap text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 md:hidden"><a href="{% url "login" %}" class="">Get stadrted</a></button>
-      {% endif %}
-
-      <div class="navbar-toggle">
-        <div class="menu-btn__burger"></div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
-  {% block content %}{% endblock content %}
-  </main>
-
-  <footer class="bg-grey-100 rounded-lg dark:bg-gray-100">
-    {% if user.is_authenticated %}
-      <section class="footer_contact block">
-        <div class="contact_container">
-          <figure>
-            <img src="{% static "img/fashion1.png" %}" alt="mail">
-          </figure>
-          <div class="contact_right">
-            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
-            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-              Lorem ipsum dolor sit, amet consectetur adipisicing good for you
-              elit. Rerum corporis ex just .
-            </p>
-          </div>
-        </div>
-        <div class="contact_container">
-          <figure>
-            <img src="{% static "img/fashion2.png" %}" alt="mail">
-          </figure>
-          <div class="contact_right">
-            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Contact</a>
-            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
-              corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            </p>
-          </div>
-        </div>
-        <div class="contact_container">
-          <figure>
-            <img src="{% static "img/fashion4.png" %}" alt="like"
+  <div class="flex min-h-screen flex-col xbg-green-100" >
+    <header class="flex-shrink-0 py-1">
+      <a href="{% url 'list_products' %}" class="flex justify-start items-center">
+<!--        <img src="{% static "assets/Coffee_logo.png" %}" class="h-12" alt="coffee" />-->
+        <figure class="h-10 w-10 relative overflow-hidden">
+          {% comment %} <div class="relative w-full h-full rounded-md overflow-hidden">
+            <!-- ð1 Skeleton con ID Ãonico -->
+            <div id="skeleton-brand" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
+            </div>
+            <!-- ð1 Imagen real -->
+            <img
+              src="{% static 'assets/brand2.png' %}"
+              alt="Avatar"
+              class="h-full object-cover transition duration-700 opacity-0"
+              onload="
+                this.style.opacity='1';
+                document.getElementById('skeleton-brand').style.display='none';
+              "
             />
-          </figure>
-          <div class="contact_right">
-            <a href="#" class="block hover:underline py-2 tracking-tighter text-gray-500 md:text-lg dark:text-gray-400">Write a comment</a>
-            <p class="font-medium text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
-              corporis ex I am a winner, I can doit...!.
-            </p>
+          </div> {% endcomment %}
+          <img
+            src="{% static 'assets/brand2.png' %}"
+            alt=""
+            class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110"
+            loading="eager"
+            aria-hidden="true"
+          />
+          <!-- Efecto shimmer/viento -->
+          <div class="shimmer-effect absolute inset-0 w-10 h-10 z-[5]"></div>
+          <!-- Imagen real -->
+          <img
+            src="{% static 'assets/brand2.png' %}"
+            alt="{{ product.name }}"
+            class="w-10 h-10 object-cover transition-all duration-500 relative opacity-0"
+            onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; }, 1000);"
+            loading="lazy"
+          />
+        </figure>
+        <span class="self-center font-semibold text-xl lbg-green-300 ml-1.5 whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey min-[375px]:block hidden">Coffee Shop</span>
+      </a>
+      <nav class="">
+        <ul class="nav-menu">
+          <li><a href="{% url 'list_products' %}" class="">Home</a></li>
+          <li><a href="#" class="">Blog</a></li>
+          <li><a href="#" class="">Contact</a></li>
+          <li><a href="#" class="">Services</a></li>
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'my_order' %}" class="text-nowrap sm:block md:hidden">My Orders</a></li>
+          {% else %}
+            <li><a href="{% url 'my_order' %}" class="text-nowrap sm:block md:hidden">My Orders</a></li>
+          {% endif %}
+          {% if user.is_authenticated %}
+            <li><a href="{% url 'add_product' %}" class="text-nowrap md:block">Add Product</a></li>
+          {% else %}
+            <li><a href="{% url 'add_product' %}" class="text-nowrap sm:hidden md:hidden">Add Product</a></li>
+          {% endif %}
+
+          <div class="middle_line border-gray-200 md:hidden"></div>
+          <div class="flex md:hidden log_in__user w-full">
+            <div class="flex items-center align-center justify-center">
+              {% if user.is_authenticated %}
+                <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
+                  <span class="sr-only">Open user menu</span>
+
+                  <figure class="w-11 h-11 relative overflow-hidden">
+                    <div class="relative w-full h-full rounded-md overflow-hidden">
+                      <!-- ð1 Skeleton con ID Ãonico -->
+                      <div id="skeleton-profile1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
+                      </div>
+                      <!-- ð1 Imagen real -->
+                      <img
+                        src="{% static 'assets/xorig.webp' %}"
+                        alt="profile"
+                        class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
+                        onload="
+                          this.style.opacity='1';
+                          document.getElementById('skeleton-profile1').style.display='none';
+                        "
+                      />
+                    </div>
+                  </figure>
+                  <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                </button>
+                <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-2 mr-1">{{ user.username }}</span>
+              {% endif %}
+            </div>
+            <div id="user-dropdown1" class="z-40 hidden w-full text-base list-none bg-white shadow dark:bg-gray-400 dark:divide-white-400">
+              <div class="px-4 py-3">
+                <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
+              </div>
+              <ul class="py-2" aria-labelledby="user-menu-button">
+                <li>
+                  <form action="{% url "logout" %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="block w-full relative -left-[5px] border bg-gray-200 rounded-lg text-nowrap text-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 dark:hover:bg-green-600 dark:text-white-200 dark:hover:text-white">Sign out</button>
+                  </form>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </ul>
+
+        <!--    mobile max-[768px]    -->
+         {% if user.is_authenticated %}
+          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block md:hidden absolute right-[64px] top-[4px]">
+            <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4 bg-yellow-400 bg-gradient-to-b from-yellow-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
+            <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
+            </svg>
+          </button>
+        {% else %}
+          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block absolute right-[64px] top-[4px] md:hidden">
+            <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-green-400 bg-gradient-to-b from-green-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
+            <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
+            </svg>
+          </button>
+        {% endif %}
+
+        <!--    min-[768px]    -->
+        <div class="hidden md:block relative">
+          <div class="flex items-center justify-center">
+            <div class="flex items-center justify-center mr-1">
+              {% if user.is_authenticated %}
+                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xl:pb-[1px] xbg-blue-300 max-[800px]:max-w-[65px] max-[800px]:overflow-hidden max-[800px]:text-ellipsis max-[800px]:whitespace-nowrap">{{ user.username }}</span>
+                <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                  <span class="sr-only">Open user menu</span>
+
+                  <figure class="w-10 h-10 relative overflow-hidden">
+                    <div class="relative w-full h-full rounded-md overflow-hidden">
+                      <!-- ð1 Skeleton con ID Ãonico -->
+                      <div id="skeleton-profile2" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
+                      </div>
+                      <!-- ð1 Imagen real -->
+                      <img
+                        src="{% static 'assets/xuser2.jpg' %}"
+                        alt="profile"
+                        class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
+                        onload="this.style.opacity='1'; document.getElementById('skeleton-profile2').style.display='none';"
+                      />
+                    </div>
+                  </figure>
+                  <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
+                </button>
+                <div class="z-50 w-auto hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600 modal_banner_out" id="user-dropdown">
+                  <div class="px-4 py-3">
+                    <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
+                  </div>
+                  <ul class="py-2" aria-labelledby="user-menu-button">
+                    <li>
+                      <form action="{% url 'logout' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="block text-left w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
+                      </form>
+                    </li>
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+            <div class="relative flex items-center justify-center">
+              {% if user.is_authenticated %}
+                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block relative align-center">
+                  <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-green-400 bg-gradient-to-b from-green-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
+                  <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
+                  </svg>
+                </button>
+
+              {% else %}
+                <button type="button"
+                  onclick="window.location.href='{% url 'login' %}'" class="inline-flex items-center text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-blue-300 ml-1">
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg" class="mr-1 text-black">
+                    <path d="M15 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm-9 8v-1c0-2.67 5.33-4 9-4s9 1.33 9 4v1H6zm3-9H6V8H4v3H1v2h3v3h2v-3h3z"></path>
+                  </svg>
+                </button>
+                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block relative align-center">
+                  <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-yellow-400 bg-gradient-to-b from-yellow-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
+                  <svg class="mt-1 bg-red" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
+                  </svg>
+                </button>
+              {% endif %}
+            </div>
           </div>
         </div>
-      </section>
-    {% else %}
-      <section class="footer_contact hidden"></section>
-    {% endif %}
-    <div class="max-w-screen-xl mx-auto mt-8 mb-4">
-      <div class="sm:flex sm:items-center sm:justify-between">
-        <a href="" class="flex items-center mb-2 sm:mb-0 space-x-3 rtl:space-x-reverse">
-          {% load static %}
-          <img src="{% static "/img/coffee.png" %}" class="h-8" alt="coffee" />
-          <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-grey">brunomaldonado</span>
-        </a>
-        <ul class="flex flex-wrap items-center text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-          <li>
-              <a href="#" class="hover:underline me-4 md:me-6">About</a>
-          </li>
-          <li>
-              <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
-          </li>
-          <li>
-              <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
-          </li>
-          <li>
-              <a href="#" class="hover:underline">Contact</a>
-          </li>
-        </ul>
-      </div>
-  
-      <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-4" />
-      <span class="flex items-center justify-center text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2025. All Rights Reserved.</span>
+        <div class="navbar-toggle">
+          <div class="menu-btn__burger"></div>
+        </div>
+      </nav>
+    </header>
+
+    <div class="flex-1">
+      <main class="">
+      {% block content %}{% endblock content %}
+      </main>
     </div>
-  </footer>
 
- <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
+    <footer class="bg-grey-100 rounded-lg dark:bg-gray-100 flex-shrink-0 mt-12 relative">
+      {% if user.is_authenticated %}
+        <section class="grid gap-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+          <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
+            <figure class="w-11 h-11 me-3 relative overflow-hidden">
+              <div class="relative w-full h-full rounded-md overflow-hidden">
+                <!-- ð1 Skeleton con ID Ãonico -->
+                <div id="skeleton-avatar1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
+                </div>
+                <!-- ð1 Imagen real -->
+                <img
+                  src="{% static 'assets/' %}"
+                  alt="Avatar"
+                  class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
+                  onload="
+                    this.style.opacity='1';
+                    document.getElementById('skeleton-avatar1').style.display='none';
+                  "
+                />
+              </div>
+            </figure>
+            <div class="">
+              <a href="#" class="hover:underline py-2 tracking-tighter text-gray-500 text-sm md:text-md dark:text-gray-400">Contact</a>
+              <p class="font-medium text-gray-900 text-[12px]  md:text-blue-700 md:p-0 md:dark:text-blue-500 leading-[1.25]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
+                corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              </p>
+            </div>
+          </div>
+          <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
+            <figure class="w-11 h-11 me-3 flex justify-center items-center self-center relative overflow-hidden">
+              <!-- Imagen blur (background) -->
+              <img
+                src="{% static 'assets/profile1x.webp' %}"
+                alt=""
+                class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110"
+                loading="eager"
+                aria-hidden="true"
+              />
+              <!-- Efecto shimmer/viento -->
+              <div class="shimmer-effect absolute inset-0 w-10 h-10 z-[5]"></div>
+              <!-- Imagen real -->
+              <img
+                src="{% static 'assets/user2' %}"
+                alt="{{ product.name }}"
+                class="w-full h-full object-cover transition-all duration-500 relative z-10 opacity-0"
+                onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; }, 2000);"
+                loading="lazy"
+              />
+            </figure>
+            <div class="">
+              <a href="#" class="hover:underline py-2 tracking-tighter text-gray-500 text-sm md:text-md dark:text-gray-400">Contact</a>
+              <p class="font-medium text-[12px] text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500 leading-[1.25]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
+                corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              </p>
+            </div>
+          </div>
+          <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
+            <figure class="w-11 h-11 me-3 relative overflow-hidden">
+              <div class="relative w-full h-full rounded-md overflow-hidden">
+                <!-- ð1 Skeleton con ID Ãonico -->
+                <div id="skeleton-avatar3" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
+                </div>
+                <!-- ð1 Imagen real -->
+                <img
+                  src="{% static 'assets/' %}"
+                  alt="Avatar"
+                  class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
+                  onload="
+                    this.style.opacity='1';
+                    document.getElementById('skeleton-avatar3').style.display='none';
+                  "
+                />
+              </div>
+            </figure>
+            <div class="">
+              <a href="#" class="hover:underline py-2 tracking-tighter text-gray-500 text-sm md:text-md dark:text-gray-400">Contact</a>
+              <p class="font-medium text-[12px] text-gray-900 md:text-blue-700 md:p-0 md:dark:text-blue-500 leading-[1.25]">
+                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Rerum
+                corporis ex. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+              </p>
+            </div>
+          </div>
 
- <script>
-   const navbarToggle = document.querySelector('.navbar-toggle');
-   const navMenu = document.querySelector('.nav-menu');
-   const backgproundBlur = document.querySelector('.backdrop_blur')
-   const logo = document.querySelector('.logo')
-   let menuOpen = false;
+        </section>
+        <div class="sm:flex sm:items-center sm:justify-between xbg-green-200 mt-9">
+          <a href="" class="flex sm:mb-0">
+            {% load static %}
+            <figure class="h-11 w-11 relative overflow-hidden xbg-yellow-400">
+              <div class="relative h-full w-auto rounded-md overflow-hidden">
+                <!-- ð1 Skeleton con ID Ãonico -->
+                <div id="skeleton-brand1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full"></div>
+                <!-- ð1 Imagen real -->
+                <img
+                  src="{% static 'assets/' %}"
+                  alt="Avatar"
+                  class="h-full w-auto pl-[5px] object-cover transition duration-700 opacity-0"
+                  onload="
+                    this.style.opacity='1';
+                    document.getElementById('skeleton-brand1').style.display='none';
+                  "
+                />
+              </div>
+            </figure>
+            <span class="flex self-center ml-1.5 font-semibold whitespace-nowrap dark:text-grey xbg-green-200">{{ user.username }}</span>
+          </a>
+          <ul class="flex flex-wrap items-center max-[639px]:mt-2 text-[12px] md:text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <li>
+                <a href="#" class="hover:underline me-4 md:me-6">About</a>
+            </li>
+            <li>
+                <a href="#" class="hover:underline me-4 md:me-6">Privacy Policy</a>
+            </li>
+            <li>
+                <a href="#" class="hover:underline me-4 md:me-6">Licensing</a>
+            </li>
+            <li>
+                <a href="#" class="hover:underline">Contact</a>
+            </li>
+          </ul>
+        </div>
+      {% else %}
+        <section class="hidden"></section>
+      {% endif %}
+      <div class="max-w-screen-xl mx-auto mb-4">
+        <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 md:my-2" />
+        <span class="flex items-center justify-center text-sm md:mt-4 text-gray-500 sm:text-center dark:text-gray-400">Â© 2025. All Rights Reserved.</span>
+      </div>
+    </footer>
+  </div>
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
-   navbarToggle.addEventListener('click', () => {
-     if(!menuOpen) {
-       navbarToggle.classList.add('open');
-       menuOpen = true;
+<script>
+  const toggle = document.querySelector('.navbar-toggle');
+  const menu = document.querySelector('.nav-menu');
+  const backgproundBlur = document.querySelector('.backdrop_blur')
+  const logo = document.querySelector('.logo')
+  const body = document.body;
+  let menuOpen = false;
 
-     } else {
-       navbarToggle.classList.remove('open');
-       menuOpen = false;
-     }
+  toggle.addEventListener('click', () => {
+    if(!menuOpen) {
+      body.classList.add('menu-open');
+      toggle.classList.add('open');
+      menuOpen = true;
 
-     backgproundBlur.classList.toggle('show');
-     navbarToggle.classList.toggle('active');
-     navMenu.classList.toggle('active');
-     navMenu.classList.toggle('show');
-     {% comment %} navMenu.classList.remove('close'); {% endcomment %}
-     logo.classList.toggle('active');
+    } else {
+      body.classList.remove('menu-open');
+      toggle.classList.remove('open');
+      menuOpen = false;
+    }
 
-     bars.forEach(child => {
-       child.classList.toggle('animations')
-     })
-   })
-   document.addEventListener('click', ( e ) => {
-     if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
-       backgproundBlur.classList.remove('show');
-       navMenu.classList.remove('show');
-       {% comment %} navMenu.classList.remove('close'); {% endcomment %}
-       navbarToggle.classList.remove('open');
-       logo.classList.remove('active');
-       menuOpen = false;
-   }
-   });
+    backgproundBlur.classList.toggle('show');
+    toggle.classList.toggle('active');
+    menu.classList.toggle('active');
+    menu.classList.toggle('show');
+    {% comment %} menu.classList.remove('close'); {% endcomment %}
+    logo.classList.toggle('active');
+  })
 
-   function minwidth(x) {
-     if (x.matches) { // If media query matches
-       backgproundBlur.classList.remove('show');
-       navMenu.classList.remove('show');
-       {% comment %} navMenu.classList.remove('close'); {% endcomment %}
-       navbarToggle.classList.remove('open');
-       logo.classList.remove('active');
+  document.addEventListener('click', ( e ) => {
+    if (!toggle.contains(e.target) && !menu.contains(e.target) ) {
+      body.classList.remove('menu-open');
+      backgproundBlur.classList.remove('show');
+      menu.classList.remove('show');
+      {% comment %} menu.classList.remove('close'); {% endcomment %}
+      toggle.classList.remove('open');
+      logo.classList.remove('active');
+      menuOpen = false;
+    }
+  });
 
-       menuOpen = false;
+  function minwidth(x) {
+    if (x.matches) { // If media query matches
+      body.classList.remove('menu-open');
+      backgproundBlur.classList.remove('show');
+      menu.classList.remove('show');
+      {% comment %} menu.classList.remove('close'); {% endcomment %}
+      toggle.classList.remove('open');
+      logo.classList.remove('active');
 
-     } else {
-      {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
-     }
-   }
+      menuOpen = false;
 
-   // Create a MediaQueryList object
-   var x = window.matchMedia("(min-width: 768px)")
+    } else {
+    {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
+    }
+  }
 
-   // Call listener function at run time
-   minwidth(x);
- 
-   // Attach listener function on state changes
-   x.addEventListener("change", function() {
-     minwidth(x);
-   });
-   </script>
+  // Create a MediaQueryList object
+  var x = window.matchMedia("(min-width: 768px)")
 
+  // Call listener function at run time
+  minwidth(x);
+
+  // Attach listener function on state changes
+  x.addEventListener("change", function() {
+    minwidth(x);
+  });
+
+</script>
 </body>
 </html>

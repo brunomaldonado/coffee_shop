@@ -7,7 +7,7 @@ class ProductForm(forms.Form):
     description = forms.CharField(max_length=300, label="Description")
     price = forms.DecimalField(max_digits=10, decimal_places=2, label="Price")
     available = forms.BooleanField(initial=True, label="Available", required=False)
-    photo = forms.ImageField(label="Photo", required=False)
+    image = forms.ImageField(label="Image", required=False)
     # quantity = forms.DecimalField(max_digits=1, label="quantity")
 
     def save(self):
@@ -16,6 +16,7 @@ class ProductForm(forms.Form):
             description=self.cleaned_data["description"],
             price=self.cleaned_data["price"],
             available=self.cleaned_data["available"],
-            photo=self.cleaned_data["photo"],
+            image=self.cleaned_data["image"],
             # quantity = self.cleaned_data('quantity')
         )
+
