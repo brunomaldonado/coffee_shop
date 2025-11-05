@@ -92,6 +92,20 @@
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  header > a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+   header nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
   }
 
   header .logo {
@@ -152,20 +166,17 @@
   }
 
   .nav-menu li{
-    margin-top: 30px;
-
+    margin-top: 18px;
     text-decoration: none;
     color: #330b0b;
     transition: 0.3s ease-out;
     text-transform: uppercase;
-    /* background-color: burlywood; */
-    /* align-self: start; */
-    padding: 0;
     list-style: none;
+    padding: 8px 16px;
   }
 
   .nav-menu li:nth-child(1) {
-    margin-top: 60px;
+    margin-top: 48px;
   }
 
   .nav-menu li a{
@@ -175,6 +186,7 @@
     display: block;
     width: 100%;
     padding-left: 18px;
+
   }
 
 
@@ -182,6 +194,7 @@
   .nav-menu li:active {
     backdrop-filter: blur(8px);
     background-color: hsla(0, 0%, 95.3%, 0.75);
+    background-color: burlywood;
   }
 
   .log_in__user {
@@ -364,7 +377,7 @@
   .summary-value {
     text-align: right;
     font-weight: 600;
-    min-width: 3rem; /* Ajusta segÃÂon tus necesidades */
+    min-width: 3rem; /* Ajusta segÃƒÂon tus necesidades */
   }
 
   .copyright {
@@ -373,7 +386,7 @@
     font-family: 'Poppins', sans-serif;
   }
 
-  /* Ocultar el encabezado de la tabla en pantallas pequeÃÂ±as */
+  /* Ocultar el encabezado de la tabla en pantallas pequeÃƒÂ±as */
 
   @media screen and (max-height: 540px) {
     header nav .nav-menu.active {
@@ -396,7 +409,7 @@
     display: none;
   }
 
-  /* Estilos para cada fila como una tarjeta en mÃÂ3viles */
+  /* Estilos para cada fila como una tarjeta en mÃƒÂ3viles */
   tbody tr {
     display: block;
     border: 1px solid #e5e5e5;
@@ -491,7 +504,7 @@
     height: 2rem;
   }
 
-  /* BotÃÂ3n delete */
+  /* BotÃƒÂ3n delete */
   .delete-button {
     display: inline-block;
     padding: 0.25rem 0;
@@ -518,7 +531,6 @@
     }
 
     .nav-menu {
-      /* height: 10px; */
       position: relative;
       display: flex;
       flex-direction: row;
@@ -526,7 +538,7 @@
       justify-content: center;
       background: transparent;
       background-color: transparent;
-      /* background-color: rgb(140, 143, 142); */
+      {% comment %} background-color: rgb(140, 143, 142); {% endcomment %}
       transform: translateX(0%);
       opacity: 1;
       gap: 0;
@@ -543,10 +555,11 @@
 
     .nav-menu li {
       margin: 0;
-      padding: 0;
-      margin-top: 0;
       margin-left: 0;
-      /* background-color: mediumslateblue; */
+      margin-top: 0;
+      padding: 0;
+      {% comment %} padding-top: 1.25px; {% endcomment %}
+      cursor: pointer;
     }
 
     .nav-menu li:nth-child(1) {
@@ -559,12 +572,27 @@
       font-size: 14px;
       color: #010131;
       font-weight: 500;
+      display: inline-block;
+      position: relative;
+      top: 1px;
+      text-decoration: none;
       padding: 6px;
     }
-    .nav-menu li:hover,
-    .nav-menu li:active {
-      backdrop-filter: blur(8px);
-      background-color: hsla(0, 69%, 82%, 0.75);
+
+    .nav-menu li a::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #010131; /* Mismo color que el texto del menú */
+      transition: width 0.3s ease-out;
+    }
+
+    .nav-menu li:hover a::after,
+    .nav-menu li a:hover::after {
+      width: 100%;
     }
 
     .navbar-toggle {
@@ -591,6 +619,10 @@
       max-width: 1280px;
       margin: 0 auto;
     }
+    {% comment %} .nav-menu li a{
+      position: relative;
+      top: 1px;
+    } {% endcomment %}
   }
 
 </style>
@@ -603,10 +635,10 @@
 <!--        <img src="{% static "assets/Coffee_logo.png" %}" class="h-12" alt="coffee" />-->
         <figure class="h-10 w-10 relative overflow-hidden">
           {% comment %} <div class="relative w-full h-full rounded-md overflow-hidden">
-            <!-- ð1 Skeleton con ID Ãonico -->
+            <!-- ðŸ”1 Skeleton con ID Ãonico -->
             <div id="skeleton-brand" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
             </div>
-            <!-- ð1 Imagen real -->
+            <!-- ðŸ”1 Imagen real -->
             <img
               src="{% static 'assets/brand2.png' %}"
               alt="Avatar"
@@ -635,23 +667,23 @@
             loading="lazy"
           />
         </figure>
-        <span class="self-center font-semibold text-xl lbg-green-300 ml-1.5 whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey min-[375px]:block hidden">Coffee Shop</span>
+        <span class="self-center font-semibold text-md lbg-green-300 ml-1.5 whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey min-[375px]:block hidden">Coffee Shop</span>
       </a>
       <nav class="">
         <ul class="nav-menu">
-          <li><a href="{% url 'list_products' %}" class="">Home</a></li>
+          <li class="sm:block"><a href="{% url 'list_products' %}" class="text-nowrap">Home</a></li>
           <li><a href="#" class="">Blog</a></li>
           <li><a href="#" class="">Contact</a></li>
           <li><a href="#" class="">Services</a></li>
           {% if user.is_authenticated %}
-            <li><a href="{% url 'my_order' %}" class="text-nowrap sm:block md:hidden">My Orders</a></li>
+            <li class="sm:block md:hidden"><a href="{% url 'my_order' %}" class="text-nowrap">My Orders</a></li>
           {% else %}
-            <li><a href="{% url 'my_order' %}" class="text-nowrap sm:block md:hidden">My Orders</a></li>
+            <li class="sm:block md:hidden"><a href="{% url 'my_order' %}" class="text-nowrap">My Orders</a></li>
           {% endif %}
           {% if user.is_authenticated %}
-            <li><a href="{% url 'add_product' %}" class="text-nowrap md:block">Add Product</a></li>
+            <li class="md:block"><a href="{% url 'add_product' %}" class="text-nowrap">Add Product</a></li>
           {% else %}
-            <li><a href="{% url 'add_product' %}" class="text-nowrap sm:hidden md:hidden">Add Product</a></li>
+            <li class="sm:block md:hidden"><a href="{% url 'add_product' %}" class="text-nowrap">Add Product</a></li>
           {% endif %}
 
           <div class="middle_line border-gray-200 md:hidden"></div>
@@ -663,10 +695,10 @@
 
                   <figure class="w-11 h-11 relative overflow-hidden">
                     <div class="relative w-full h-full rounded-md overflow-hidden">
-                      <!-- ð1 Skeleton con ID Ãonico -->
+                      <!-- ðŸ”1 Skeleton con ID Ãonico -->
                       <div id="skeleton-profile1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                       </div>
-                      <!-- ð1 Imagen real -->
+                      <!-- ðŸ”1 Imagen real -->
                       <img
                         src="{% static 'assets/xorig.webp' %}"
                         alt="profile"
@@ -718,19 +750,19 @@
 
         <!--    min-[768px]    -->
         <div class="hidden md:block relative">
-          <div class="flex items-center justify-center">
-            <div class="flex items-center justify-center mr-1">
+          <div class="flex items-center">
+            <div class="flex items-center mr-1">
               {% if user.is_authenticated %}
-                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xl:pb-[1px] xbg-blue-300 max-[800px]:max-w-[65px] max-[800px]:overflow-hidden max-[800px]:text-ellipsis max-[800px]:whitespace-nowrap">{{ user.username }}</span>
+                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xbg-blue-300 max-[900px]:max-w-[65px] max-[900px]:overflow-hidden max-[900px]:text-ellipsis max-[900px]:whitespace-nowrap max-[900px]:mr-0 md:pt-[1.25px]">{{ user.username }}</span>
                 <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                   <span class="sr-only">Open user menu</span>
 
                   <figure class="w-10 h-10 relative overflow-hidden">
                     <div class="relative w-full h-full rounded-md overflow-hidden">
-                      <!-- ð1 Skeleton con ID Ãonico -->
+                      <!-- ðŸ”1 Skeleton con ID Ãonico -->
                       <div id="skeleton-profile2" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                       </div>
-                      <!-- ð1 Imagen real -->
+                      <!-- ðŸ”1 Imagen real -->
                       <img
                         src="{% static 'assets/xuser2.jpg' %}"
                         alt="profile"
@@ -800,10 +832,10 @@
           <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
             <figure class="w-11 h-11 me-3 relative overflow-hidden">
               <div class="relative w-full h-full rounded-md overflow-hidden">
-                <!-- ð1 Skeleton con ID Ãonico -->
+                <!-- ðŸ”1 Skeleton con ID Ãonico -->
                 <div id="skeleton-avatar1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                 </div>
-                <!-- ð1 Imagen real -->
+                <!-- ðŸ”1 Imagen real -->
                 <img
                   src="{% static 'assets/' %}"
                   alt="Avatar"
@@ -837,7 +869,7 @@
               <div class="shimmer-effect absolute inset-0 w-10 h-10 z-[5]"></div>
               <!-- Imagen real -->
               <img
-                src="{% static 'assets/user2' %}"
+                src="{% static 'assets/' %}"
                 alt="{{ product.name }}"
                 class="w-full h-full object-cover transition-all duration-500 relative z-10 opacity-0"
                 onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; }, 2000);"
@@ -855,10 +887,10 @@
           <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
             <figure class="w-11 h-11 me-3 relative overflow-hidden">
               <div class="relative w-full h-full rounded-md overflow-hidden">
-                <!-- ð1 Skeleton con ID Ãonico -->
+                <!-- ðŸ”1 Skeleton con ID Ãonico -->
                 <div id="skeleton-avatar3" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                 </div>
-                <!-- ð1 Imagen real -->
+                <!-- ðŸ”1 Imagen real -->
                 <img
                   src="{% static 'assets/' %}"
                   alt="Avatar"
@@ -885,9 +917,9 @@
             {% load static %}
             <figure class="h-11 w-11 relative overflow-hidden xbg-yellow-400">
               <div class="relative h-full w-auto rounded-md overflow-hidden">
-                <!-- ð1 Skeleton con ID Ãonico -->
+                <!-- ðŸ”1 Skeleton con ID Ãonico -->
                 <div id="skeleton-brand1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full"></div>
-                <!-- ð1 Imagen real -->
+                <!-- ðŸ”1 Imagen real -->
                 <img
                   src="{% static 'assets/' %}"
                   alt="Avatar"
@@ -921,7 +953,7 @@
       {% endif %}
       <div class="max-w-screen-xl mx-auto mb-4">
         <hr class="my-4 border-gray-200 sm:mx-auto dark:border-gray-700 md:my-2" />
-        <span class="flex items-center justify-center text-sm md:mt-4 text-gray-500 sm:text-center dark:text-gray-400">Â© 2025. All Rights Reserved.</span>
+        <span class="flex items-center justify-center text-sm md:mt-4 text-gray-500 sm:text-center dark:text-gray-400">© 2025. All Rights Reserved.</span>
       </div>
     </footer>
   </div>
