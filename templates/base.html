@@ -109,11 +109,11 @@
   }
 
   header .logo {
-    text-transform: uppercase;
+    display: flex;
+    align-items: center;
     font-family: "Poppins", sans-serif;
-    font-weight: 800;
-    font-style: normal;
-    width: max-content;
+    {% comment %} width: 6rem;
+    line-height: 6px; {% endcomment %}
   }
 
   .logo:hover {
@@ -151,7 +151,6 @@
     box-shadow: 1px 1px 10px 0 rgba(0, 0, 0, 0.05);
     background: rgb(252,252,252);
     background: linear-gradient(to bottom, rgba(252,252,252,1) 5%, rgba(255,255,255,0.75) 100%);
-    /* background-color: rgb(167, 164, 161); */
   }
 
   .nav-menu.close{
@@ -184,11 +183,9 @@
     font-family: "Poppins";
     font-size: 14px;
     display: block;
-    width: 100%;
     padding-left: 18px;
 
   }
-
 
   .nav-menu li:hover,
   .nav-menu li:active {
@@ -276,7 +273,7 @@
 
   .middle_line {
     width: 85%;
-    border-bottom: 2px solid grey;
+    border-bottom: 4px solid #000;
     position: absolute;
     top: 50%;
     left: 45%;
@@ -631,28 +628,12 @@
   <div class="backdrop_blur"></div>
   <div class="flex min-h-screen flex-col xbg-green-100" >
     <header class="flex-shrink-0 py-1">
-      <a href="{% url 'list_products' %}" class="flex justify-start items-center">
-<!--        <img src="{% static "assets/Coffee_logo.png" %}" class="h-12" alt="coffee" />-->
-        <figure class="h-10 w-10 relative overflow-hidden">
-          {% comment %} <div class="relative w-full h-full rounded-md overflow-hidden">
-            <!-- ðŸ”1 Skeleton con ID Ãonico -->
-            <div id="skeleton-brand" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
-            </div>
-            <!-- ðŸ”1 Imagen real -->
-            <img
-              src="{% static 'assets/brand2.png' %}"
-              alt="Avatar"
-              class="h-full object-cover transition duration-700 opacity-0"
-              onload="
-                this.style.opacity='1';
-                document.getElementById('skeleton-brand').style.display='none';
-              "
-            />
-          </div> {% endcomment %}
+      <a href="{% url 'list_products' %}" class="flex justify-start items-center logo">
+        <figure class="h-10 w-10 relative overflow-hidden rounded-t-full">
           <img
             src="{% static 'assets/brand2.png' %}"
             alt=""
-            class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110"
+            class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110 bg_image"
             loading="eager"
             aria-hidden="true"
           />
@@ -663,11 +644,11 @@
             src="{% static 'assets/brand2.png' %}"
             alt="{{ product.name }}"
             class="w-10 h-10 object-cover transition-all duration-500 relative opacity-0"
-            onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; }, 1000);"
+            onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; this.parentElement.querySelector('.bg_image').style.display='none'; }, 1000);"
             loading="lazy"
           />
         </figure>
-        <span class="self-center font-semibold text-md lbg-green-300 ml-1.5 whitespace-nowrap text-ellipsis whitespace-nowrap overflow-hidden dark:text-grey min-[375px]:block hidden">Coffee Shop</span>
+        <span class="self-center font-semibold text-md w-[4rem] leading-[1] xbg-green-300 ml-1.5 min-[375px]:block hidden">Coffee Shop</span>
       </a>
       <nav class="">
         <ul class="nav-menu">
@@ -690,19 +671,19 @@
           <div class="flex md:hidden log_in__user w-full">
             <div class="flex items-center align-center justify-center">
               {% if user.is_authenticated %}
-                <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
+                <button type="button" class="relative w-auto text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button1" aria-expanded="false" data-dropdown-toggle="user-dropdown1" data-dropdown-placement="bottom">
                   <span class="sr-only">Open user menu</span>
 
                   <figure class="w-11 h-11 relative overflow-hidden">
-                    <div class="relative w-full h-full rounded-md overflow-hidden">
+                    <div class="relative h-full w-auto rounded-md overflow-hidden">
                       <!-- ðŸ”1 Skeleton con ID Ãonico -->
                       <div id="skeleton-profile1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                       </div>
                       <!-- ðŸ”1 Imagen real -->
                       <img
-                        src="{% static 'assets/xorig.webp' %}"
+                        src="{% static 'assets/orig.webp' %}"
                         alt="profile"
-                        class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
+                        class="h-full w-auto object-cover transition duration-700 opacity-0 rounded-full"
                         onload="
                           this.style.opacity='1';
                           document.getElementById('skeleton-profile1').style.display='none';
@@ -715,7 +696,7 @@
                 <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-2 mr-1">{{ user.username }}</span>
               {% endif %}
             </div>
-            <div id="user-dropdown1" class="z-40 hidden w-full text-base list-none bg-white shadow dark:bg-gray-400 dark:divide-white-400">
+            <div id="user-dropdown1" class="z-40 hidden w-[90%] text-base list-none bg-white shadow dark:bg-gray-400 dark:divide-white-400">
               <div class="px-4 py-3">
                 <span class="block text-nowrap text-sm text-gray-900 dark:text-white">You got it champion</span>
               </div>
@@ -723,7 +704,7 @@
                 <li>
                   <form action="{% url "logout" %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="block w-full relative -left-[5px] border bg-gray-200 rounded-lg text-nowrap text-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 dark:hover:bg-green-600 dark:text-white-200 dark:hover:text-white">Sign out</button>
+                    <button type="submit" class="block w-full border bg-gray-200 rounded-lg text-nowrap text-center px-4 py-2 text-sm text-gray-700 hover:bg-blue-100 dark:hover:bg-green-600 dark:text-white-200 dark:hover:text-white">Sign out</button>
                   </form>
                 </li>
               </ul>
@@ -753,7 +734,7 @@
           <div class="flex items-center">
             <div class="flex items-center mr-1">
               {% if user.is_authenticated %}
-                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xbg-blue-300 max-[900px]:max-w-[65px] max-[900px]:overflow-hidden max-[900px]:text-ellipsis max-[900px]:whitespace-nowrap max-[900px]:mr-0 md:pt-[1.25px]">{{ user.username }}</span>
+                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xbg-blue-300 max-[800px]:max-w-[65px] max-[800px]:overflow-hidden max-[800px]:text-ellipsis max-[800px]:whitespace-nowrap max-[800px]:mr-0 md:pt-[1.25px]">{{ user.username }}</span>
                 <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                   <span class="sr-only">Open user menu</span>
 
@@ -764,7 +745,7 @@
                       </div>
                       <!-- ðŸ”1 Imagen real -->
                       <img
-                        src="{% static 'assets/xuser2.jpg' %}"
+                        src="{% static 'assets/profile1.webp' %}"
                         alt="profile"
                         class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
                         onload="this.style.opacity='1'; document.getElementById('skeleton-profile2').style.display='none';"
@@ -837,7 +818,7 @@
                 </div>
                 <!-- ðŸ”1 Imagen real -->
                 <img
-                  src="{% static 'assets/' %}"
+                  src="{% static 'assets/orig.webp' %}"
                   alt="Avatar"
                   class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
                   onload="
@@ -859,7 +840,7 @@
             <figure class="w-11 h-11 me-3 flex justify-center items-center self-center relative overflow-hidden">
               <!-- Imagen blur (background) -->
               <img
-                src="{% static 'assets/profile1x.webp' %}"
+                src="{% static 'assets/user2.jpg' %}"
                 alt=""
                 class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110"
                 loading="eager"
@@ -869,7 +850,7 @@
               <div class="shimmer-effect absolute inset-0 w-10 h-10 z-[5]"></div>
               <!-- Imagen real -->
               <img
-                src="{% static 'assets/' %}"
+                src="{% static 'assets/user2.jpg' %}"
                 alt="{{ product.name }}"
                 class="w-full h-full object-cover transition-all duration-500 relative z-10 opacity-0"
                 onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; }, 2000);"
@@ -892,7 +873,7 @@
                 </div>
                 <!-- ðŸ”1 Imagen real -->
                 <img
-                  src="{% static 'assets/' %}"
+                  src="{% static 'assets/transparent-summer-girl.png' %}"
                   alt="Avatar"
                   class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
                   onload="
@@ -921,7 +902,7 @@
                 <div id="skeleton-brand1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full"></div>
                 <!-- ðŸ”1 Imagen real -->
                 <img
-                  src="{% static 'assets/' %}"
+                  src="{% static 'assets/logo.png' %}"
                   alt="Avatar"
                   class="h-full w-auto pl-[5px] object-cover transition duration-700 opacity-0"
                   onload="
@@ -960,63 +941,66 @@
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.5.2/dist/flowbite.min.js"></script>
 
 <script>
-  const toggle = document.querySelector('.navbar-toggle');
-  const menu = document.querySelector('.nav-menu');
+  const navbarToggle = document.querySelector('.navbar-toggle');
+  const navMenu = document.querySelector('.nav-menu');
   const backgproundBlur = document.querySelector('.backdrop_blur')
   const logo = document.querySelector('.logo')
-  const body = document.body;
   let menuOpen = false;
 
-  toggle.addEventListener('click', () => {
+  navbarToggle.addEventListener('click', () => {
     if(!menuOpen) {
-      body.classList.add('menu-open');
-      toggle.classList.add('open');
+      navbarToggle.classList.add('open');
       menuOpen = true;
+      logo.classList.add('active');
 
     } else {
-      body.classList.remove('menu-open');
-      toggle.classList.remove('open');
+      navbarToggle.classList.remove('open');
       menuOpen = false;
+      logo.classList.remove('active');
     }
 
     backgproundBlur.classList.toggle('show');
-    toggle.classList.toggle('active');
-    menu.classList.toggle('active');
-    menu.classList.toggle('show');
-    {% comment %} menu.classList.remove('close'); {% endcomment %}
-    logo.classList.toggle('active');
+    navbarToggle.classList.toggle('active');
+    navMenu.classList.toggle('active');
+    navMenu.classList.toggle('show');
+    navMenu.classList.remove('close');
+
+    bars.forEach(child => {
+      child.classList.toggle('animations')
+    })
   })
 
   document.addEventListener('click', ( e ) => {
-    if (!toggle.contains(e.target) && !menu.contains(e.target) ) {
-      body.classList.remove('menu-open');
+    if (!navbarToggle.contains(e.target) && !navMenu.contains(e.target) ) {
       backgproundBlur.classList.remove('show');
-      menu.classList.remove('show');
-      {% comment %} menu.classList.remove('close'); {% endcomment %}
-      toggle.classList.remove('open');
+      navMenu.classList.remove('show');
+      navMenu.classList.remove('close');
+      navbarToggle.classList.remove('open');
       logo.classList.remove('active');
       menuOpen = false;
-    }
+      console.log("click document.addEventListener")
+  }
   });
+
+    // Create a MediaQueryList object
+  var x = window.matchMedia("(min-width: 768px)")
 
   function minwidth(x) {
     if (x.matches) { // If media query matches
-      body.classList.remove('menu-open');
       backgproundBlur.classList.remove('show');
-      menu.classList.remove('show');
-      {% comment %} menu.classList.remove('close'); {% endcomment %}
-      toggle.classList.remove('open');
+      navMenu.classList.remove('show');
+      navMenu.classList.remove('close');
+      navbarToggle.classList.remove('open');
       logo.classList.remove('active');
+
+      console.log("min-width: 768px")
 
       menuOpen = false;
 
     } else {
-    {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
+      {% comment %} document.body.style.backgroundColor = "pink"; {% endcomment %}
     }
   }
-
-  // Create a MediaQueryList object
-  var x = window.matchMedia("(min-width: 768px)")
 
   // Call listener function at run time
   minwidth(x);
@@ -1025,7 +1009,6 @@
   x.addEventListener("change", function() {
     minwidth(x);
   });
-
-</script>
+  </script>
 </body>
 </html>
