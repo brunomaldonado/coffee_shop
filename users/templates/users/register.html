@@ -11,7 +11,13 @@
     aria-hidden="true"
   />
   <div class="flex items-center justify-center -mt-[12px]">
-    <div class="mx-auto py-4 max-w-md space-y-4 max-[380px]:w-auto min-[375px]:w-[380px]">
+    <div class="mx-auto py-4 max-w-md space-y-4 max-[380px]:w-auto min-[375px]:w-[380px] xbg-green-200 relative">
+      <img
+        src="{% static 'assets/brand3.png' %}"
+        alt=""
+        class="absolute top-0 right-1/2 translate-x-1/2 mt-[12px] w-auto h-12 "
+        aria-hidden="true"
+      />
       <h1 class="mb-6 max-[380px]:text-3xl text-4xl font-extrabold text-blue-700">Sing In</h1>
         <form action="" class="" method="post">
           {% csrf_token %}
@@ -27,5 +33,12 @@
     </div>
   </div>
 </div>
-
+{% comment %} <footer class="w-full mt-8 flex justify-center items-center py-4">
+  <img
+    src="{% static 'assets/logo5.png' %}"
+    alt=""
+    class="absolute bottom-6 xl:bottom-10 w-auto h-20 "
+    aria-hidden="true"
+  />
+</footer> {% endcomment %}
 {% endblock content %}

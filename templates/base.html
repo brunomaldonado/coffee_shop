@@ -398,6 +398,8 @@
   .footer-blur {
     backdrop-filter: blur(8px);
     background-color: hsla(0, 0%, 95.3%, 0.75);
+    {% comment %} display: block;
+    margin: 0; {% endcomment %}
   }
 
   .copyright {
@@ -649,7 +651,7 @@
 </head>
 <body class="background">
   <div class="backdrop_blur"></div>
-  <div class="flex min-h-screen flex-col xbg-green-100" >
+  <div class="flex min-h-screen flex-col xbg-green-100">
     <header class="flex-shrink-0 py-1">
       <a href="{% url 'list_products' %}" class="flex justify-start items-center logo">
         <figure class="h-10 w-10 relative overflow-hidden">
@@ -955,9 +957,17 @@
       {% else %}
         <section class="hidden"></section>
       {% endif %}
-      <div class="max-w-screen-xl mx-auto footer-blur">
-        <hr class="border-gray-200 sm:mx-auto dark:border-gray-400" />
-        <span class="flex items-center justify-center text-sm md:py-4 text-gray-500 sm:text-center dark:text-gray-500">© 2025. All Rights Reserved.</span>
+      <div class="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] footer-blur overflow-hidden  ">
+        <img
+          src="{% static 'assets/11731.jpeg' %}"
+          alt=""
+          class="absolute inset-0 w-full h-full object-cover blur-3xl scale-50 -z-10 opacity-50 scale-y-[-1]"
+          aria-hidden="true"
+        />
+        <div class="max-w-screen-xl mx-auto">
+          {% comment %} <hr class="border-gray-200 sm:mx-auto dark:border-gray-400" /> {% endcomment %}
+          <span class="flex items-center justify-center text-sm my-2 xl:my-4 text-gray-500 sm:text-center dark:text-gray-500">© 2025. All Rights Reserved.</span>
+        </div>
       </div>
     </footer>
   </div>
