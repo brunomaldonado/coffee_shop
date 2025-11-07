@@ -652,26 +652,26 @@
   <div class="flex min-h-screen flex-col xbg-green-100">
     <header class="flex-shrink-0 py-1">
       <a href="{% url 'list_products' %}" class="flex justify-start items-center logo">
-        <figure class="h-10 w-10 relative overflow-hidden">
+        <figure class="w-full h-12 relative overflow-hidden">
           <img
-            src="{% static 'assets/brand2.png' %}"
+            src="{% static 'assets/brand07.png' %}"
             alt=""
-            class="w-10 h-10 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110 bg_image"
+            class="w-full h-12 absolute inset-0 h-auto w-full object-cover blur-3xl scale-110 bg_image"
             loading="eager"
             aria-hidden="true"
           />
           <!-- Efecto shimmer/viento -->
-          <div class="shimmer-effect absolute inset-0 w-10 h-10 z-[5]"></div>
+          <div class="shimmer-effect absolute inset-0 w-10 h-15 z-[5]"></div>
           <!-- Imagen real -->
           <img
-            src="{% static 'assets/brand2.png' %}"
+            src="{% static 'assets/brand07.png' %}"
             alt="{{ product.name }}"
-            class="w-10 h-10 object-cover transition-all duration-500 relative opacity-0"
+            class="w-full h-12 object-cover transition-all duration-500 relative opacity-0"
             onload="setTimeout(() => { this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none'; this.parentElement.querySelector('.bg_image').style.display='none'; }, 1000);"
             loading="lazy"
           />
         </figure>
-        <span class="self-center font-semibold text-md w-[4rem] leading-[1] xbg-green-300 ml-1.5 min-[375px]:block hidden">Coffee Shop</span>
+        {% comment %} <span class="self-center font-semibold text-md w-[4rem] leading-[1] xbg-green-300 ml-1.5 min-[375px]:block hidden">Coffee Shop</span> {% endcomment %}
       </a>
       <nav class="">
         <ul class="nav-menu">
