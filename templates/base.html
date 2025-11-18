@@ -185,7 +185,7 @@
   .nav-menu li{
     margin-top: 18px;
     text-decoration: none;
-    color: #330b0b;
+    {% comment %} color: #330b0b; {% endcomment %}
     transition: 0.3s ease-out;
     text-transform: uppercase;
     list-style: none;
@@ -209,12 +209,12 @@
   .nav-menu li:active {
     backdrop-filter: blur(8px);
     background-color: hsla(0, 0%, 95.3%, 0.75);
-    background-color: burlywood;
+    {% comment %} background-color: burlywood; {% endcomment %}
   }
 
   .log_in__user {
     position: absolute;
-    bottom: 60px;
+    bottom: 50px;
     left: 18px;
   }
 
@@ -287,6 +287,7 @@
 
   .navbar-toggle.active {
     position: fixed;
+    right: 20px;
   }
 
   .middle_line {
@@ -392,7 +393,7 @@
   .summary-value {
     text-align: right;
     font-weight: 600;
-    min-width: 3rem; /* Ajusta segÃƒÂon tus necesidades */
+    min-width: 3rem; /* Ajusta segAÌƒÆ’AÌ‚on tus necesidades */
   }
 
   .footer-blur {
@@ -406,7 +407,7 @@
     font-family: 'Poppins', sans-serif;
   }
 
-  /* Ocultar el encabezado de la tabla en pantallas pequeÃƒÂ±as */
+  /* Ocultar el encabezado de la tabla en pantallas pequeAÌƒÆ’AÌ‚Â±as */
 
   @media screen and (max-height: 540px) {
     header nav .nav-menu.active {
@@ -419,7 +420,7 @@
 
     .log_in__user {
       position: relative;
-      top: 60px;
+      top: 50px;
       padding-bottom: 60px;
     }
   }
@@ -429,7 +430,7 @@
     display: none;
   }
 
-  /* Estilos para cada fila como una tarjeta en mÃƒÂ3viles */
+  /* Estilos para cada fila como una tarjeta en mAÌƒÆ’AÌ‚3viles */
   tbody tr {
     display: block;
     border: 1px solid #e5e5e5;
@@ -524,7 +525,7 @@
     height: 2rem;
   }
 
-  /* BotÃƒÂ3n delete */
+  /* BotAÌƒÆ’AÌ‚3n delete */
   .delete-button {
     display: inline-block;
     padding: 0.25rem 0;
@@ -606,7 +607,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background-color: #010131; /* Mismo color que el texto del menú */
+      background-color: #010131; /* Mismo color que el texto del menuÌ */
       transition: width 0.3s ease-out;
     }
 
@@ -699,10 +700,10 @@
 
                   <figure class="w-11 h-11 relative overflow-hidden">
                     <div class="relative h-full w-auto rounded-md overflow-hidden">
-                      <!-- ðŸ”1 Skeleton con ID Ãonico -->
+                      <!-- Ã°YÌˆâ€1 Skeleton con ID AÌƒonico -->
                       <div id="skeleton-profile1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                       </div>
-                      <!-- ðŸ”1 Imagen real -->
+                      <!-- Ã°YÌˆâ€1 Imagen real -->
                       <img
                         src="{% static 'assets/orig.webp' %}"
                         alt="profile"
@@ -717,6 +718,18 @@
                   <span class="top-0 start-7 absolute w-3.5 h-3.5 bg-green-500 border-2 border-white dark:border-gray-800 rounded-full"></span>
                 </button>
                 <span class="text-sm font-bold text-green dark:text-green text-ellipsis whitespace-nowrap overflow-hidden ml-2 mr-1">{{ user.username }}</span>
+              {% else %}
+              {% comment %}  {% endcomment %}
+                <button type="button"
+                  onclick="window.location.href='{% url 'login' %}'" class="inline-flex items-center text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-2 py-2 text-center dark:text-black dark:hover:bg-gray-200 dark:focus:ring-blue-300 xbg-green-200 ml-2">
+                  {% comment %} <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg" class="mr-1 text-black">
+                    <path d="M15 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm-9 8v-1c0-2.67 5.33-4 9-4s9 1.33 9 4v1H6zm3-9H6V8H4v3H1v2h3v3h2v-3h3z"></path>
+                  </svg> {% endcomment %}
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 18 19" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg" class="mr-1 text-black">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M6 4.5a3 3 0 116 0 3 3 0 01-6 0zm3-4a4 4 0 100 8 4 4 0 000-8zm5.58 12.15c1.12.82 1.83 2.24 1.91 4.85H1.51c.08-2.6.79-4.03 1.9-4.85C4.66 11.75 6.5 11.5 9 11.5s4.35.26 5.58 1.15zM9 10.5c-2.5 0-4.65.24-6.17 1.35C1.27 12.98.5 14.93.5 18v.5h17V18c0-3.07-.77-5.02-2.33-6.15-1.52-1.1-3.67-1.35-6.17-1.35z" fill="currentColor"></path>
+                  </svg>
+                  <span class="text-sm font-bold text-green dark:text-green relative w-auto ml-1">Log In</span>
+                </button>
               {% endif %}
             </div>
             <div id="user-dropdown1" class="z-40 hidden w-[90%] text-base list-none bg-white shadow dark:bg-gray-400 dark:divide-white-400">
@@ -737,14 +750,14 @@
 
         <!--    mobile max-[768px]    -->
          {% if user.is_authenticated %}
-          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block md:hidden absolute right-[64px] top-[4px]">
+          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-2 py-2 text-center dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center mr-0 block md:hidden absolute right-[52px] top-[4px]">
             <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4 bg-yellow-400 bg-gradient-to-b from-yellow-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
             <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
             </svg>
           </button>
         {% else %}
-          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block absolute right-[64px] top-[4px] md:hidden">
+          <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-2 py-2 text-center dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center mr-0 block absolute right-[52px] top-[5px] md:hidden">
             <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-green-400 bg-gradient-to-b from-green-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
             <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
               <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
@@ -757,16 +770,16 @@
           <div class="flex items-center">
             <div class="flex items-center mr-1">
               {% if user.is_authenticated %}
-                <span class="text-[14px] font-bold text-green dark:text-green mr-1.5 ml-1.5 xbg-blue-300 max-[800px]:max-w-[65px] max-[800px]:overflow-hidden max-[800px]:text-ellipsis max-[800px]:whitespace-nowrap max-[800px]:mr-0 md:pt-[1.5px]">{{ user.username }}</span>
+                <span class="text-[14px] font-bold text-green dark:text-green ml-1.5 mr-1.5 xbg-blue-300 max-[800px]:max-w-[65px] max-[800px]:overflow-hidden max-[800px]:text-ellipsis max-[800px]:whitespace-nowrap max-[800px]:mr-0 md:pt-[1.5px]">{{ user.username }}</span>
                 <button type="button" class="relative text-sm bg-gray-800 rounded-full md:me-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600 w-10" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
                   <span class="sr-only">Open user menu</span>
 
                   <figure class="w-10 h-10 relative overflow-hidden">
                     <div class="relative w-full h-full rounded-md overflow-hidden">
-                      <!-- ðŸ”1 Skeleton con ID Ãonico -->
+                      <!-- Ã°YÌˆâ€1 Skeleton con ID AÌƒonico -->
                       <div id="skeleton-profile2" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                       </div>
-                      <!-- ðŸ”1 Imagen real -->
+                      <!-- Ã°YÌˆâ€1 Imagen real -->
                       <img
                         src="{% static 'assets/profile1.webp' %}"
                         alt="profile"
@@ -794,7 +807,7 @@
             </div>
             <div class="relative flex items-center justify-center">
               {% if user.is_authenticated %}
-                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block relative align-center">
+                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-2 py-2 text-center dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center mr-0 block relative left-1 align-center">
                   <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-green-400 bg-gradient-to-b from-green-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
                   <svg class="mt-1 bg-red-100" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
@@ -803,12 +816,12 @@
 
               {% else %}
                 <button type="button"
-                  onclick="window.location.href='{% url 'login' %}'" class="inline-flex items-center text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 dark:focus:ring-blue-300 ml-1">
-                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg" class="mr-1 text-black">
+                  onclick="window.location.href='{% url 'login' %}'" class="inline-flex items-center text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-3 py-2.5 text-center dark:text-black dark:hover:bg-gray-200 dark:focus:ring-blue-300">
+                  <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg" class=" text-black">
                     <path d="M15 12c2.7 0 5-2.3 5-5s-2.3-5-5-5-5 2.3-5 5 2.3 5 5 5zm-9 8v-1c0-2.67 5.33-4 9-4s9 1.33 9 4v1H6zm3-9H6V8H4v3H1v2h3v3h2v-3h3z"></path>
                   </svg>
                 </button>
-                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-white dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center ml-3 mr-0 block relative align-center">
+                <button type="button" onclick="window.location.href='{% url 'my_order' %}'" class="truncate text-nowrap text-black hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-200 font-medium rounded-lg text-sm px-2 py-2 text-center dark:text-black dark:hover:bg-gray-200 text-center inline-flex items-center mr-0 block relative left-1 align-center">
                   <span class="order-count flex justify-center items-center self-center absolute font-semibold text-blue-900 absolute bottom-4  bg-yellow-400 bg-gradient-to-b from-yellow-400 to-white opacity-90 rounded-full h-5 w-5 transition">{{ cart_count }}</span>
                   <svg class="mt-1 bg-red" stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.25rem" width="1.25rem" xmlns="http://www.w3.org/2000/svg">
                     <path d="M6 2a2 2 0 0 0-2 2v18l4-2 4 2 4-2 4 2V4a2 2 0 0 0-2-2H6zm0 2h12v14.764l-2-.999-2 1-2-1-2 1-2-1-2 1V4z"></path><path d="M8 6h8v2H8zm0 4h8v2H8z"></path>
@@ -836,10 +849,10 @@
           <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
             <figure class="w-11 h-11 me-3 relative overflow-hidden">
               <div class="relative w-full h-full rounded-md overflow-hidden">
-                <!-- ðŸ”1 Skeleton con ID Ãonico -->
+                <!-- Ã°YÌˆâ€1 Skeleton con ID AÌƒonico -->
                 <div id="skeleton-avatar1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
                 </div>
-                <!-- ðŸ”1 Imagen real -->
+                <!-- Ã°YÌˆâ€1 Imagen real -->
                 <img
                   src="{% static 'assets/orig.webp' %}"
                   alt="Avatar"
@@ -891,18 +904,14 @@
           <div class="grid grid-cols-[auto_auto] items-center self-center mb-3">
             <figure class="w-11 h-11 me-3 relative overflow-hidden">
               <div class="relative w-full h-full rounded-md overflow-hidden">
-                <!-- ðŸ”1 Skeleton con ID Ãonico -->
-                <div id="skeleton-avatar3" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full">
-                </div>
-                <!-- ðŸ”1 Imagen real -->
+                <!-- Ã°YÌˆâ€1 Skeleton con ID AÌƒonico -->
+                <div id="skeleton-avatar3" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full"></div>
+                <!-- Ã°YÌˆâ€1 Imagen real -->
                 <img
                   src="{% static 'assets/transparent-summer-girl.png' %}"
                   alt="Avatar"
                   class="h-full w-full object-cover transition duration-700 opacity-0 rounded-full"
-                  onload="
-                    this.style.opacity='1';
-                    document.getElementById('skeleton-avatar3').style.display='none';
-                  "
+                  onload="this.style.opacity='1'; document.getElementById('skeleton-avatar3').style.display='none';"
                 />
               </div>
             </figure>
@@ -921,9 +930,9 @@
             {% load static %}
             <figure class="h-11 w-11 relative overflow-hidden xbg-yellow-400">
               <div class="relative h-full w-auto rounded-md overflow-hidden">
-                <!-- ðŸ”1 Skeleton con ID Ãonico -->
+                <!-- Ã°YÌˆâ€1 Skeleton con ID AÌƒonico -->
                 <div id="skeleton-brand1" class="absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect rounded-full"></div>
-                <!-- ðŸ”1 Imagen real -->
+                <!-- Ã°YÌˆâ€1 Imagen real -->
                 <img
                   src="{% static 'assets/logo.png' %}"
                   alt="Avatar"

@@ -29,6 +29,7 @@
       </button>
       {% if product.image %}
         <figure class="flex justify-center items-center self-center relative overflow-hidden">
+          <div class="skeleton-shimmer absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect"></div>
           <!-- Imagen blur (background) -->
           <img
             src="{{ product.image.url }}"
@@ -44,12 +45,13 @@
             src="{{ product.image.url }}"
             alt="{{ product.name }}"
             class="h-72 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-74 relative z-10 opacity-0"
-            onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none';"
+            onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelectorAll('.shimmer-effect').forEach(el => el.style.display='none'); this.parentElement.querySelector('.skeleton-shimmer').style.display='none';"
             loading="lazy"
           />
         </figure>
       {% else %}
         <figure class="flex justify-center items-center self-center relative overflow-hidden">
+          <div class="skeleton-shimmer absolute inset-0 bg-gradient-to-r from-gray-300 via-gray-100 to-gray-300 shimmer-effect"></div>
           <!-- Imagen blur (background) -->
           <img
             src="{% static 'assets/image_not_available.png' %}"
@@ -65,7 +67,7 @@
             src="{% static 'assets/image_not_available.png' %}"
             alt="{{ product.name }}"
             class="h-72 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-74 relative z-10 opacity-0"
-            onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelector('.shimmer-effect').style.display='none';"
+            onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelectorAll('.shimmer-effect').forEach(el => el.style.display='none'); this.parentElement.querySelector('.skeleton-shimmer').style.display='none';"
             loading="lazy"
           />
         </figure>
