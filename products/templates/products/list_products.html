@@ -34,17 +34,17 @@
           <img
             src="{{ product.image.url }}"
             alt=""
-            class="absolute inset-0 h-72 w-full object-cover blur-3xl scale-110 sm:h-74"
+            class="absolute inset-0 h-[30rem] min-[540px]:h-[18rem] w-full object-cover blur-3xl scale-110 sm:h-[22rem] md:h-[20rem] xl:h-[22rem]"
             loading="eager"
             aria-hidden="true"
           />
           <!-- Efecto shimmer/viento -->
-          <div class="shimmer-effect absolute inset-0 h-72 sm:h-74 z-[5]"></div>
+          <div class="shimmer-effect absolute inset-0 h-[30rem] min-[540px]:h-[18rem] sm:h-[22rem] md:h-[20rem] xl:h-[22rem] z-[5]"></div>
           <!-- Imagen real -->
           <img
             src="{{ product.image.url }}"
             alt="{{ product.name }}"
-            class="h-72 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-74 relative z-10 opacity-0"
+            class="h-[30rem] min-[540px]:h-[18rem] w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-[22rem] md:h-[20rem] xl:h-[22rem] relative z-10 opacity-0"
             onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelectorAll('.shimmer-effect').forEach(el => el.style.display='none'); this.parentElement.querySelector('.skeleton-shimmer').style.display='none';"
             loading="lazy"
           />
@@ -56,17 +56,17 @@
           <img
             src="{% static 'assets/image_not_available.png' %}"
             alt=""
-            class="absolute inset-0 h-72 w-full object-cover blur-3xl scale-110 sm:h-74"
+            class="absolute inset-0 h-[30rem] min-[540px]:h-[18rem] w-full object-cover blur-3xl scale-110 sm:h-[22rem] md:h-[20rem] xl:h-[22rem]"
             loading="eager"
             aria-hidden="true"
           />
           <!-- Efecto shimmer/viento -->
-          <div class="shimmer-effect absolute inset-0 h-72 sm:h-74 z-[5]"></div>
+          <div class="shimmer-effect absolute inset-0 h-[30rem] min-[540px]:h-[18rem] sm:h-[22rem] md:h-[20rem] xl:h-[22rem] z-[5]"></div>
           <!-- Imagen placeholder real -->
           <img
             src="{% static 'assets/image_not_available.png' %}"
             alt="{{ product.name }}"
-            class="h-72 w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-74 relative z-10 opacity-0"
+            class="h-[30rem] min-[540px]:h-[18rem] w-full object-cover transition-all duration-500 group-hover:scale-105 sm:h-[22rem] md:h-[20rem] xl:h-[22rem] relative z-10 opacity-0"
             onload="this.classList.remove('opacity-0'); this.classList.add('opacity-100'); this.parentElement.querySelectorAll('.shimmer-effect').forEach(el => el.style.display='none'); this.parentElement.querySelector('.skeleton-shimmer').style.display='none';"
             loading="lazy"
           />
